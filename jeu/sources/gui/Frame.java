@@ -20,6 +20,7 @@ public class Frame extends JFrame
 	private PanelEchap pnlEchap;
 	private Controleur c;
 	private JLabel lblImage;
+	private PanelAccueil pnlAcceuil;
 
 	public Frame(Controleur c)
 	{
@@ -32,6 +33,9 @@ public class Frame extends JFrame
 		this.lblImage = new JLabel(new ImageIcon(new ImageIcon("./img/uno_dos_tres.jpg").getImage().getScaledInstance((int)(1600*this.ratio),(int)(900*this.ratio), Image.SCALE_DEFAULT)));
         this.setContentPane(this.lblImage);
         this.setLayout(new FlowLayout());
+
+		this.pnlAcceuil = new PanelAccueil(c);
+		this.add(this.pnlAcceuil);
 
 		this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		this.setVisible(true);
@@ -53,15 +57,14 @@ public class Frame extends JFrame
 	{
 		if (this.pnlEchap != null)
 		{
+			this.lblImage.setIcon(new ImageIcon(new ImageIcon("./img/uno_dos_tres.jpg").getImage().getScaledInstance((int)(1600*this.ratio),(int)(900*this.ratio), Image.SCALE_DEFAULT)));
 			this.backToGame();
 		}
 		else
 		{
-			System.out.println("ajout");
 			this.pnlEchap = new PanelEchap(this.c);
 			this.add(this.pnlEchap);
 		}
-		System.out.println("echap");
 		this.resize();
 	}
 
@@ -69,6 +72,14 @@ public class Frame extends JFrame
 	{
 		this.remove(this.pnlEchap);
 		this.pnlEchap = null;
+	}
+
+	public void demarrer()
+	{
+		this.remove(this.pnlAcceuil);
+		// this.pnlGame = new PanelGame();
+		// this.add(this.pnlGame);
+		this.resize();
 	}
 
 	protected JRootPane createRootPane()

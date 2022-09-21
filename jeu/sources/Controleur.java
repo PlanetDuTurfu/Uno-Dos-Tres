@@ -16,8 +16,13 @@ public class Controleur
         s[2] = "c";
         s[3] = "d";
         this.work = new Worker(s);
-        this.work.demarrer();
         this.gui = new Frame(this);
+    }
+
+    public void demarrer()
+    {
+        this.work.demarrer();
+        this.gui.demarrer();
     }
 
     public void setRatio(float ratio)
