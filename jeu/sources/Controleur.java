@@ -10,11 +10,12 @@ public class Controleur
 
     public Controleur()
     {
-        String[] s = new String[4];
+        String[] s = new String[5];
         s[0] = "a";
         s[1] = "b";
         s[2] = "c";
         s[3] = "d";
+        s[4] = "e";
         this.work = new Worker(s);
         this.gui = new Frame(this);
     }

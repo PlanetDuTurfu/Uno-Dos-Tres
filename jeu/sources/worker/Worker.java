@@ -194,13 +194,13 @@ public class Worker
         {
             int tmp = this.joueurs.indexOf(this.joueurActuel) + 2 * this.sensHoraire;
             if (tmp < 0) tmp = this.joueurs.size() + tmp;
-            this.joueurActuel = this.joueurs.get((tmp) % 4);
+            this.joueurActuel = this.joueurs.get((tmp) % this.joueurs.size());
         }
         else
         {
             int tmp = this.joueurs.indexOf(this.joueurActuel) + this.sensHoraire;
             if (tmp < 0) tmp = this.joueurs.size() + tmp;
-            this.joueurActuel = this.joueurs.get((tmp) % 4);
+            this.joueurActuel = this.joueurs.get((tmp) % this.joueurs.size());
         }
         System.out.println("Au tour de " + this.joueurActuel.getPseudo() + " de jouer.");
         for (Joueur j : this.joueurs)
