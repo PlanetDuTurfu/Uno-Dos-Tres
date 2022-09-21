@@ -24,15 +24,34 @@ public class Joueur
     {
         String valeur = c.getValeur();
         char couleur = c.getCouleur();
-        for (Carte carte : this.main)
+        if (valeur.equals("p2") && c.estActive())
         {
-            if (couleur == carte.getCouleur() || valeur.equals(carte.getValeur())) carte.peutEtreJoue();
-            else carte.nePeutPasEtreJoue();
+            for (Carte carte : this.main)
+                if (carte.getValeur().equals("p2") || carte.getValeur().equals("p4")) carte.peutEtreJoue();
+        }
+        else if (valeur.equals("p4") && c.estActive())
+        {
+            for (Carte carte : this.main)
+                if (carte.getValeur().equals("p4")) carte.peutEtreJoue();
+        }
+        else
+        {
+            for (Carte carte : this.main)
+            {
+                if (couleur == carte.getCouleur() || valeur.equals(carte.getValeur()) || carte.getCouleur() == 'N') carte.peutEtreJoue();
+                else carte.nePeutPasEtreJoue();
+            }
         }
 
         for (Carte carte : this.main)
             if (carte.peutElleEtreJoue()) return true;
         return false;
+    }
+
+    public void nePeutPlusJouer()
+    {
+        for (Carte c : this.main)
+            c.nePeutPasEtreJoue();
     }
 
     public void trierCartes()
@@ -48,6 +67,34 @@ public class Joueur
     public void retirerCarte(Carte c)
     {
         this.main.remove(c);
+    }
+
+    public void stacker(char couleur)
+    {
+        for (int i = this.main.size() - 1; i > 0; i--)
+            if (this.main.get(i).getCouleur() == couleur)
+                this.retirerCarte(this.main.get(i));
+    }
+
+    public boolean hasWin()
+    {
+        if (this.main.size() == 1) return true;
+        return false;
+    }
+
+    public Carte jouerAleatoire()
+    {
+        ArrayList<Carte> carteJouable = new ArrayList<Carte>();
+        for (Carte c : this.main)
+            if (c.peutElleEtreJoue())
+                carteJouable.add(c);
+        
+        return carteJouable.get((int)(Math.random()*carteJouable.size()));
+    }
+
+    public char choisirCouleur()
+    {
+        return this.main.get((int)(Math.random()*this.main.size())).getCouleur();
     }
 
     public String toString()

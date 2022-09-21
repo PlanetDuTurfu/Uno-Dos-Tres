@@ -10,12 +10,18 @@ public class Worker
     private Carte lastCarte;
     private Joueur joueurActuel;
     private boolean piocheMultiple;
+    private int sensHoraire;
+    private int pileAddition;
+    private boolean fini;
 
     public Worker(String[] pseudos)
     {
         this.cartes = new ArrayList<Carte>();
         this.joueurs = new ArrayList<Joueur>();
         this.piocheMultiple = false;
+        this.fini = false;
+        this.sensHoraire = 1;
+        this.pileAddition = 0;
         for (String s : pseudos)
             this.joueurs.add(new Joueur(s));
     }
@@ -33,6 +39,20 @@ public class Worker
         this.joueurActuel = this.joueurs.get((int)(Math.random()*4));
         System.out.println(this.joueurActuel.getPseudo() + " commence à jouer.");
         System.out.println("Première carte : " + this.lastCarte + ".");
+
+        while(!this.fini)
+        {
+            if (this.joueurActuel.peutJouer(this.lastCarte) && this.joueurActuel.hasWin())
+            {
+                this.dernierCoup(this.joueurActuel.jouerAleatoire());
+            }
+            else if (this.joueurActuel.peutJouer(this.lastCarte)) this.jouerCarte(this.joueurActuel.jouerAleatoire());
+            else this.piocher(0);
+
+            for (Joueur j : this.joueurs)
+                System.out.println(j.toString());
+            try { Thread.sleep(500); } catch(Exception e) {}
+        }
     }
 
     private void init()
@@ -74,7 +94,7 @@ public class Worker
     private void distribuer()
     {
         for (int j = 0; j < this.joueurs.size(); j++)
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < 6; i++)
                 this.joueurs.get(j).addCarte(this.carteHasard());
     }
 
@@ -88,22 +108,79 @@ public class Worker
         this.lastCarte = this.cartes.get((int)(Math.random()*40));
     }
 
-    public void jouerCarte(Carte c)
+    private void dernierCoup(Carte c)
     {
+        System.out.println("Joue " + c);
         this.joueurActuel.retirerCarte(c);
         this.lastCarte = c;
-        this.prochainTour();
+        // Si +2
+        if (c.getValeur().equals("p2")) this.pileAddition += 2;
+        // Si +4
+        if (c.getValeur().equals("p4")) this.pileAddition += 4;
+
+        int tmp = this.joueurs.indexOf(this.joueurActuel) + this.sensHoraire;
+        if (tmp < 0) tmp = this.joueurs.size() + tmp - 1;
+        this.joueurActuel = this.joueurs.get((tmp) % 4);
+        this.piocher(this.pileAddition);
+        this.fini = true;
     }
 
-    public void piocher()
+    public void jouerCarte(Carte c)
     {
-        if (this.piocheMultiple)
-        {
+        System.out.println("Joue " + c);
+        this.joueurActuel.retirerCarte(c);
+        this.lastCarte = c;
+        this.actionCarte();
+        this.prochainTour();
+        
+    }
 
+    private void actionCarte()
+    {
+        String val = this.lastCarte.getValeur();
+        // Si chiffre
+        try {
+            Integer.parseInt(val);
+            return;
+        } catch(Exception e) {}
+
+        // Si sens interdit
+        if (val.equals("si")) return;
+        // Si +2
+        if (val.equals("p2")) this.pileAddition += 2;
+        // Si changement de sens
+        if (val.equals("cs")) this.sensHoraire = this.sensHoraire * -1;
+        // Si stacker
+        if (val.equals("st")) this.joueurActuel.stacker(this.lastCarte.getCouleur());
+        // Si +4
+        if (val.equals("p4"))
+        {
+            this.pileAddition += 4;
+            this.lastCarte = new Carte("p4",this.joueurActuel.choisirCouleur());
+        }
+        // Si changement de couleur
+        if (val.equals("cc")) this.lastCarte = new Carte("cc",this.joueurActuel.choisirCouleur());
+    }
+
+    public void piocher(int nbCarte)
+    {
+        if (nbCarte != 0)
+        {
+            System.out.println("Il pioche "+nbCarte+" carte");
+            for (int i = 0; i < nbCarte; i++)
+                this.joueurActuel.addCarte(this.carteHasard());
         }
         else
         {
-            this.joueurActuel.addCarte(this.carteHasard());
+            if (this.piocheMultiple)
+            {
+
+            }
+            else
+            {
+                System.out.println("Il pioche une carte");
+                this.joueurActuel.addCarte(this.carteHasard());
+            }
         }
 
         this.prochainTour();
@@ -111,8 +188,37 @@ public class Worker
 
     private void prochainTour()
     {
-        this.joueurActuel = this.joueurs.get((this.joueurs.indexOf(this.joueurActuel) + 1) % 4);
-        System.out.println("Au tour de " + this.joueurActuel.getPseudo() + " joueur.");
+        System.out.println("\n\n\n");
+        // Si il y a un sens interdit
+        if (this.lastCarte.getValeur().equals("si"))
+        {
+            int tmp = this.joueurs.indexOf(this.joueurActuel) + 2 * this.sensHoraire;
+            if (tmp < 0) tmp = this.joueurs.size() + tmp;
+            this.joueurActuel = this.joueurs.get((tmp) % 4);
+        }
+        else
+        {
+            int tmp = this.joueurs.indexOf(this.joueurActuel) + this.sensHoraire;
+            if (tmp < 0) tmp = this.joueurs.size() + tmp;
+            this.joueurActuel = this.joueurs.get((tmp) % 4);
+        }
+        System.out.println("Au tour de " + this.joueurActuel.getPseudo() + " de jouer.");
+        for (Joueur j : this.joueurs)
+            j.nePeutPlusJouer();
+        
+        // S'il y a un +2, +4... de posé
+        if (this.pileAddition > 0)
+        {
+            // Si le joueur ne peut pas jouer alors il pioche les cartes
+            if (!this.joueurActuel.peutJouer(this.lastCarte))
+            {
+                int tmp = this.pileAddition;
+                this.pileAddition = 0;
+                this.lastCarte.plusActive();
+                this.piocher(tmp);
+            }
+            this.joueurActuel.nePeutPlusJouer();
+        }
     }
 
     private String toStringCartes()
