@@ -8,16 +8,23 @@ public class Joueur
 {
     private String pseudo;
     private ArrayList<Carte> main;
+    private boolean robot;
 
-    public Joueur(String pseudo)
+    public Joueur(String pseudo, boolean robot)
     {
         this.pseudo = pseudo;
+        this.robot = robot;
         this.main = new ArrayList<Carte>();
     }
 
     public String getPseudo()
     {
         return this.pseudo;
+    }
+
+    public boolean estRobot()
+    {
+        return this.robot;
     }
 
     public boolean peutJouer(Carte c)
@@ -78,7 +85,7 @@ public class Joueur
 
     public boolean hasWin()
     {
-        if (this.main.size() == 1) return true;
+        if (this.main.size() == 0) return true;
         return false;
     }
 

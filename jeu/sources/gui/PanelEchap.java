@@ -14,6 +14,7 @@ public class PanelEchap extends JPanel implements ActionListener
     private JComboBox<String> cbResolutions;
     private JButton btnGo;
     private JButton btnAppliquer;
+    private boolean actif = false;
 
     public PanelEchap(Controleur c)
     {
@@ -33,13 +34,28 @@ public class PanelEchap extends JPanel implements ActionListener
         this.setOpaque(false);
     }
 
+    public boolean estActif()
+    {
+        return this.actif;
+    }
+
+    public void plusActif()
+    {
+        this.actif = false;
+    }
+
+    public void setActif()
+    {
+        this.actif = true;
+    }
+
     public void actionPerformed(ActionEvent e)
     {
         // Pour la résolution
         if (e.getSource().equals(this.btnAppliquer))
             this.c.setRatio(Float.parseFloat((this.cbResolutions.getSelectedItem()+"").split("x")[0]) / 1600);
 
-        if (e.getSource().equals(this.btnGo)) this.c.backToGame();
+        if (e.getSource().equals(this.btnGo)) this.c.echap();
 
         this.c.resize();
     }

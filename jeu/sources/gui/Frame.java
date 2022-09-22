@@ -3,6 +3,7 @@ package sources.gui;
 import sources.Controleur;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 import javax.swing.JRootPane;
 import javax.swing.JComponent;
@@ -16,11 +17,14 @@ import java.awt.event.ActionListener;
 
 public class Frame extends JFrame
 {
+	private Controleur c;
 	private float ratio = 1;
 	private PanelEchap pnlEchap;
-	private Controleur c;
+	private PanelLobby pnlLobby;
+	private PanelAccueil pnlAccueil;
+	private JPanel lastPanel;
+	private JPanel actualPanel;
 	private JLabel lblImage;
-	private PanelAccueil pnlAcceuil;
 
 	public Frame(Controleur c)
 	{
@@ -34,8 +38,13 @@ public class Frame extends JFrame
         this.setContentPane(this.lblImage);
         this.setLayout(new FlowLayout());
 
-		this.pnlAcceuil = new PanelAccueil(c);
-		this.add(this.pnlAcceuil);
+		this.pnlEchap = new PanelEchap(this.c);
+		this.pnlAccueil = new PanelAccueil(this.c, this.ratio);
+		this.pnlLobby = new PanelLobby(this.c);
+		this.actualPanel = new PanelBienvenue(c);
+		this.lastPanel = null;
+
+		this.add(this.actualPanel);
 
 		this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		this.setVisible(true);
@@ -44,6 +53,7 @@ public class Frame extends JFrame
 	public void setRatio(float ratio)
 	{
 		this.ratio = ratio;
+		if (this.pnlAccueil != null) this.pnlAccueil.setRatio(ratio);
 	}
 
 	public void resize()
@@ -55,33 +65,44 @@ public class Frame extends JFrame
 
 	public void echap()
 	{
-		if (this.pnlEchap != null)
+		if (this.pnlEchap.estActif())
 		{
-			this.lblImage.setIcon(new ImageIcon(new ImageIcon("./img/uno_dos_tres.jpg").getImage().getScaledInstance((int)(1600*this.ratio),(int)(900*this.ratio), Image.SCALE_DEFAULT)));
-			this.backToGame();
+			this.pnlEchap.plusActif();
+			this.remove(this.actualPanel);
+			this.actualPanel = this.lastPanel;
+			this.lastPanel = this.pnlEchap;
+			this.add(this.actualPanel);
 		}
 		else
 		{
-			this.pnlEchap = new PanelEchap(this.c);
-			this.add(this.pnlEchap);
+			this.pnlEchap.setActif();
+			this.remove(this.actualPanel);
+			this.lastPanel = this.actualPanel;
+			this.actualPanel = this.pnlEchap;
+			this.add(this.actualPanel);
 		}
 		this.resize();
 	}
 
-	public void backToGame()
+	public void accueil()
 	{
-		this.remove(this.pnlEchap);
-		this.pnlEchap = null;
-	}
-
-	public void demarrer()
-	{
-		this.remove(this.pnlAcceuil);
-		// this.pnlGame = new PanelGame();
-		// this.add(this.pnlGame);
+		this.remove(this.actualPanel);
+		this.lastPanel = this.actualPanel;
+		this.actualPanel = this.pnlAccueil;
+		this.add(this.actualPanel);
 		this.resize();
 	}
 
+	public void lobby()
+	{
+		this.remove(this.actualPanel);
+		this.lastPanel = this.actualPanel;
+		this.actualPanel = this.pnlLobby;
+		this.add(this.actualPanel);
+		this.resize();
+	}
+
+	// Option echap
 	protected JRootPane createRootPane()
 	{
 		ActionListener actionListenerForEscape= new ActionListener() {

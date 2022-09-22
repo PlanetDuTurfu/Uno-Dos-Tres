@@ -10,20 +10,27 @@ public class Controleur
 
     public Controleur()
     {
-        String[] s = new String[5];
-        s[0] = "a";
-        s[1] = "b";
-        s[2] = "c";
-        s[3] = "d";
-        s[4] = "e";
-        this.work = new Worker(s);
+        // String[] s = new String[3];
+        // s[0] = "BOT a";
+        // s[1] = "BOT b";
+        // s[2] = "BOT c";
+        // this.work = new Worker(s);
         this.gui = new Frame(this);
     }
 
-    public void demarrer()
+    public void accueil()
     {
-        this.work.demarrer();
-        this.gui.demarrer();
+        this.gui.accueil();
+    }
+
+    public void lobby()
+    {
+        this.gui.lobby();
+    }
+
+    public void leave()
+    {
+        this.gui.dispose();
     }
 
     public void setRatio(float ratio)
@@ -34,11 +41,6 @@ public class Controleur
     public void echap()
     {
         this.gui.echap();
-    }
-
-    public void backToGame()
-    {
-        this.gui.backToGame();
     }
 
     public void resize()
