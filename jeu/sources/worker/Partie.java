@@ -5,6 +5,7 @@ import java.util.Collections;
 
 public class Partie
 {
+    private static int bot = 0;
     private String id;
     private ArrayList<Carte> cartes;
     private ArrayList<Joueur> joueurs;
@@ -15,19 +16,19 @@ public class Partie
     private int pileAddition;
     private boolean fini;
 
-    public Partie(String id)
+    public Partie(String id, Joueur j)
     {
         this.id = id;
         this.cartes = new ArrayList<Carte>();
         this.joueurs = new ArrayList<Joueur>();
+        this.joueurs.add(j);
         this.piocheMultiple = false;
         this.fini = false;
         this.sensHoraire = 1;
         this.pileAddition = 0;
-
-        System.out.println("partie créée");
     }
 
+// Avant le début de la partie
     public void addJoueur(Joueur j)
     {
         this.joueurs.add(j);
@@ -41,6 +42,29 @@ public class Partie
     public int getNbJoueurs()
     {
         return this.joueurs.size();
+    }
+
+    public void exclure(String pseudo)
+    {
+        for (Joueur j : this.joueurs)
+            if (j.getPseudo().equals(pseudo))
+            {
+                this.joueurs.remove(j);
+                break;
+            }
+    }
+
+    public String getPseudos()
+    {
+        String sRet = "";
+        for (Joueur j : this.joueurs)
+            sRet += j.getPseudo() + "¤";
+        return sRet.substring(0,sRet.length()-1);
+    }
+
+    public char getCharBot()
+    {
+        return (char)((int)(bot)++);
     }
 
     public void demarrer()
@@ -89,6 +113,7 @@ public class Partie
         }
     }
 
+// Après le début de la partie
     private void init()
     {
         // Numéros

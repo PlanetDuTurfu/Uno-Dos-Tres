@@ -7,6 +7,8 @@
 ./sources/gui/PanelAccueil.java
 ./sources/gui/PanelBienvenue.java
 ./sources/gui/lobby/PanelLobby.java
+./sources/gui/lobby/PanelJoueurs.java
+./sources/gui/lobby/PanelLogo.java
 ./sources/worker/Carte.java
 ./sources/worker/Worker.java
 ./sources/worker/Joueur.java

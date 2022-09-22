@@ -44,6 +44,11 @@ public class Controleur
         this.gui.resize();
     }
 
+    public String getID()
+    {
+        return this.gui.getID();
+    }
+
     public String getNewID()
     {
         return this.work.getNewID();
@@ -54,8 +59,18 @@ public class Controleur
         return this.work.getNbJoueurs(idPartie);
     }
 
-    public void addBot(String idPartie)
+    public String getPseudos(String id)
     {
-        this.work.addBotTo(idPartie);
+        return this.work.getPseudos(id);
+    }
+
+    public boolean addBot(String idPartie)
+    {
+        return this.work.addBotTo(idPartie);
+    }
+
+    public void exclure(String id, String pseudo)
+    {
+        this.work.exclure(id,pseudo);
     }
 }

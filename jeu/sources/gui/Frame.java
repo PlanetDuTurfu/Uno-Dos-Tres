@@ -20,6 +20,7 @@ public class Frame extends JFrame
 {
 	private Controleur c;
 	private float ratio = 1;
+	private String id;
 	private PanelEchap pnlEchap;
 	private PanelLobby pnlLobby;
 	private PanelAccueil pnlAccueil;
@@ -55,6 +56,12 @@ public class Frame extends JFrame
 	{
 		this.ratio = ratio;
 		if (this.pnlAccueil != null) this.pnlAccueil.setRatio(ratio);
+		if (this.pnlLobby != null) this.pnlLobby.setRatio(ratio);
+	}
+
+	public String getID()
+	{
+		return this.id;
 	}
 
 	public void resize()
@@ -97,7 +104,7 @@ public class Frame extends JFrame
 	public void lobby()
 	{
 		this.remove(this.actualPanel);
-		this.pnlLobby.setID(this.c.getNewID());
+		this.id = this.c.getNewID();
 		this.lastPanel = this.actualPanel;
 		this.actualPanel = this.pnlLobby;
 		this.add(this.actualPanel);
