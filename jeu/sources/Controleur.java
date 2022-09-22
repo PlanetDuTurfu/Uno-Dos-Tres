@@ -10,11 +10,7 @@ public class Controleur
 
     public Controleur()
     {
-        // String[] s = new String[3];
-        // s[0] = "BOT a";
-        // s[1] = "BOT b";
-        // s[2] = "BOT c";
-        // this.work = new Worker(s);
+        this.work = new Worker();
         this.gui = new Frame(this);
     }
 
@@ -46,5 +42,20 @@ public class Controleur
     public void resize()
     {
         this.gui.resize();
+    }
+
+    public String getNewID()
+    {
+        return this.work.getNewID();
+    }
+
+    public int getNbJoueurs(String idPartie)
+    {
+        return this.work.getNbJoueurs(idPartie);
+    }
+
+    public void addBot(String idPartie)
+    {
+        this.work.addBotTo(idPartie);
     }
 }

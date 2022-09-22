@@ -5,6 +5,8 @@
 ./sources/gui/Frame.java
 ./sources/gui/PanelEchap.java
 ./sources/gui/PanelAccueil.java
+./sources/gui/PanelBienvenue.java
+./sources/gui/lobby/PanelLobby.java
 ./sources/worker/Carte.java
 ./sources/worker/Worker.java
 ./sources/worker/Joueur.java

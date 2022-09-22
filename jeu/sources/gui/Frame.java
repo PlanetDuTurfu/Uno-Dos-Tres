@@ -1,6 +1,7 @@
 package sources.gui;
 
 import sources.Controleur;
+import sources.gui.lobby.PanelLobby;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -96,6 +97,7 @@ public class Frame extends JFrame
 	public void lobby()
 	{
 		this.remove(this.actualPanel);
+		this.pnlLobby.setID(this.c.getNewID());
 		this.lastPanel = this.actualPanel;
 		this.actualPanel = this.pnlLobby;
 		this.add(this.actualPanel);
