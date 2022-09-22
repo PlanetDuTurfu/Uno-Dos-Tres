@@ -73,4 +73,36 @@ public class Controleur
     {
         this.work.exclure(id,pseudo);
     }
+
+    public void lancerPartie(String id)
+    {
+        this.gui.partie();
+        this.work.lancerPartie(id);
+    }
+
+    public void reinitialiserParam(String id)
+    {
+        this.gui.reinitialiserParam();
+        this.work.reinitialiserParam(id);
+    }
+
+    public void PM(String id, boolean b)
+    {
+        this.work.PM(id,b);
+    }
+
+    public void ST(String id, boolean b)
+    {
+        this.work.ST(id,b);
+    }
+
+    public void PR(String id, boolean b)
+    {
+        this.work.PR(id,b);
+    }
+
+    public void EQ(String id, boolean b)
+    {
+        this.work.EQ(id,b);
+    }
 }

@@ -11,10 +11,15 @@ public class Partie
     private ArrayList<Joueur> joueurs;
     private Carte lastCarte;
     private Joueur joueurActuel;
-    private boolean piocheMultiple;
     private int sensHoraire;
     private int pileAddition;
     private boolean fini;
+
+    // Paramètres de partie
+    private boolean piocheMultiple;
+    private boolean stackers;
+    private boolean partieRapide;
+    private boolean equipes;
 
     public Partie(String id, Joueur j)
     {
@@ -67,6 +72,34 @@ public class Partie
         return (char)((int)(bot)++);
     }
 
+    public void reinitialiserParam()
+    {
+        this.piocheMultiple = false;
+        this.stackers = true;
+        this.partieRapide = false;
+        this.equipes = false;
+    }
+
+    public void PM(boolean b)
+    {
+        this.piocheMultiple = b;
+    }
+
+    public void ST(boolean b)
+    {
+        this.stackers = b;
+    }
+
+    public void PR(boolean b)
+    {
+        this.partieRapide = b;
+    }
+
+    public void EQ(boolean b)
+    {
+        this.equipes = b;
+    }
+
     public void demarrer()
     {
         this.init();
@@ -86,11 +119,9 @@ public class Partie
             // S'il y a un +2, +4... de posé
             if (this.pileAddition > 0)
             {
-                System.out.println("pileAddition > 0");
                 // Si le joueur ne peut pas jouer alors il pioche les cartes
                 if (!this.joueurActuel.peutJouer(this.lastCarte))
                 {
-                    System.out.println("ne peut pas jouer");
                     int tmp = this.pileAddition;
                     this.pileAddition = 0;
                     this.lastCarte.plusActive();
@@ -101,9 +132,12 @@ public class Partie
             }
             else if (this.joueurActuel.estRobot())
             {
-                System.out.println("pileAddition = 0");
                 if (this.joueurActuel.peutJouer(this.lastCarte)) this.jouerCarte(this.joueurActuel.jouerAleatoire());
                 else this.piocher(0);
+            }
+            else
+            {
+
             }
 
             for (Joueur j : this.joueurs)

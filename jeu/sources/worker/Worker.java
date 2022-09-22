@@ -69,4 +69,40 @@ public class Worker
             if (p.getID().equals(idPartie)) return p.getNbJoueurs();
         return 4;
     }
+
+    public void lancerPartie(String id)
+    {
+        for (Partie p : this.parties)
+            if (p.getID().equals(id)) p.demarrer();
+    }
+
+    public void reinitialiserParam(String id)
+    {
+        for (Partie p : this.parties)
+            if (p.getID().equals(id)) p.reinitialiserParam();
+    }
+
+    public void PM(String id, boolean b)
+    {
+        for (Partie p : this.parties)
+            if (p.getID().equals(id)) p.PM(b);
+    }
+
+    public void ST(String id, boolean b)
+    {
+        for (Partie p : this.parties)
+            if (p.getID().equals(id)) p.ST(b);
+    }
+
+    public void PR(String id, boolean b)
+    {
+        for (Partie p : this.parties)
+            if (p.getID().equals(id)) p.PR(b);
+    }
+
+    public void EQ(String id, boolean b)
+    {
+        for (Partie p : this.parties)
+            if (p.getID().equals(id)) p.EQ(b);
+    }
 }

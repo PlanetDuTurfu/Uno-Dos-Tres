@@ -9,6 +9,9 @@
 ./sources/gui/lobby/PanelLobby.java
 ./sources/gui/lobby/PanelJoueurs.java
 ./sources/gui/lobby/PanelLogo.java
+./sources/gui/lobby/PanelP1.java
+./sources/gui/lobby/PanelP3.java
+./sources/gui/partie/PanelPartie.java
 ./sources/worker/Carte.java
 ./sources/worker/Worker.java
 ./sources/worker/Joueur.java

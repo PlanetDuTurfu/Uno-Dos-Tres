@@ -15,17 +15,17 @@ public class PanelLobby extends JPanel implements ActionListener
     private PanelJoueurs pnlJoueurs;
     private PanelParametres pnlParam;
     private JButton btnBack;
+    private JLabel trsp1;
+    private JLabel trsp2;
 
     public PanelLobby(Controleur c)
     {
         this.c = c;
 
-        this.btnBack = new JButton(new ImageIcon(new ImageIcon("./img/back.png").getImage().getScaledInstance((int)(100),(int)(100), Image.SCALE_DEFAULT)));
         this.pnlJoueurs = new PanelJoueurs(c);
         this.pnlParam = new PanelParametres(c);
-        this.add(this.btnBack);
-        this.add(this.pnlJoueurs);
-        this.add(this.pnlParam);
+
+        this.init(1);
 
         this.btnBack.addActionListener(this);
         this.btnBack.setBorderPainted(false);
@@ -36,8 +36,32 @@ public class PanelLobby extends JPanel implements ActionListener
 
     public void setRatio(float ratio)
     {
+        this.remove(this.btnBack);
+        this.remove(this.pnlJoueurs);
+        this.remove(this.trsp1);
+        this.remove(this.trsp2);
+        this.remove(this.pnlParam);
+        this.init(ratio);
         this.pnlJoueurs.setRatio(ratio);
+        this.pnlParam.setRatio(ratio);
     }
+
+    private void init(float ratio)
+    {
+        this.btnBack = new JButton(new ImageIcon(new ImageIcon("./img/back.png").getImage().getScaledInstance((int)(100*ratio),(int)(100*ratio), Image.SCALE_DEFAULT)));
+        this.trsp1 = new JLabel(new ImageIcon(new ImageIcon("./img/transparent.png").getImage().getScaledInstance((int)(384*ratio),(int)(216*ratio), Image.SCALE_DEFAULT)));
+        this.trsp2 = new JLabel(new ImageIcon(new ImageIcon("./img/transparent.png").getImage().getScaledInstance((int)(384*ratio),(int)(216*ratio), Image.SCALE_DEFAULT)));
+        this.add(this.btnBack);
+        this.add(this.pnlJoueurs);
+        this.add(this.trsp1);
+        this.add(this.trsp2);
+        this.add(this.pnlParam);
+    }
+
+    public void reinitialiserParam()
+	{
+		this.pnlParam.reinitialiserParam();
+	}
 
     public void actionPerformed(ActionEvent e)
     {

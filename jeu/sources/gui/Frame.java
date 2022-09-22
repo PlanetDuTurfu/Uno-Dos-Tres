@@ -2,6 +2,7 @@ package sources.gui;
 
 import sources.Controleur;
 import sources.gui.lobby.PanelLobby;
+import sources.gui.partie.PanelPartie;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,6 +25,7 @@ public class Frame extends JFrame
 	private PanelEchap pnlEchap;
 	private PanelLobby pnlLobby;
 	private PanelAccueil pnlAccueil;
+	private PanelPartie pnlPartie;
 	private JPanel lastPanel;
 	private JPanel actualPanel;
 	private JLabel lblImage;
@@ -43,6 +45,7 @@ public class Frame extends JFrame
 		this.pnlEchap = new PanelEchap(this.c);
 		this.pnlAccueil = new PanelAccueil(this.c, this.ratio);
 		this.pnlLobby = new PanelLobby(this.c);
+		this.pnlPartie = new PanelPartie(this.c);
 		this.actualPanel = new PanelBienvenue(c);
 		this.lastPanel = null;
 
@@ -107,6 +110,20 @@ public class Frame extends JFrame
 		this.id = this.c.getNewID();
 		this.lastPanel = this.actualPanel;
 		this.actualPanel = this.pnlLobby;
+		this.add(this.actualPanel);
+		this.resize();
+	}
+
+	public void reinitialiserParam()
+	{
+		this.pnlLobby.reinitialiserParam();
+	}
+
+	public void partie()
+	{
+		this.remove(this.actualPanel);
+		this.lastPanel = this.actualPanel;
+		this.actualPanel = this.pnlPartie;
 		this.add(this.actualPanel);
 		this.resize();
 	}
