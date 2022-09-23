@@ -76,6 +76,12 @@ public class Worker
             if (p.getID().equals(id)) p.demarrer();
     }
 
+    public void setPret(String id, String pseudo)
+    {
+        for (Partie p : this.parties)
+            if (p.getID().equals(id)) p.setPret(pseudo);
+    }
+
     public void reinitialiserParam(String id)
     {
         for (Partie p : this.parties)

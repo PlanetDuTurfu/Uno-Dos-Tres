@@ -127,6 +127,7 @@ public class Frame extends JFrame
 		this.actualPanel = this.pnlPartie;
 		this.add(this.actualPanel);
 		this.resize();
+		this.pnlPartie.pret();
 	}
 
 	// Option echap

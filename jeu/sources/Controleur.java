@@ -7,9 +7,11 @@ public class Controleur
 {
     private Worker work;
     private Frame gui;
+    private String pseudo;
 
-    public Controleur()
+    public Controleur(String pseudo)
     {
+        this.pseudo = pseudo;
         this.work = new Worker();
         this.gui = new Frame(this);
     }
@@ -64,6 +66,11 @@ public class Controleur
         return this.work.getPseudos(id);
     }
 
+    public String getPseudo()
+    {
+        return this.pseudo;
+    }
+
     public boolean addBot(String idPartie)
     {
         return this.work.addBotTo(idPartie);
@@ -76,8 +83,13 @@ public class Controleur
 
     public void lancerPartie(String id)
     {
-        this.gui.partie();
         this.work.lancerPartie(id);
+        this.gui.partie();
+    }
+
+    public void setPret(String id, String pseudo)
+    {
+        this.work.setPret(id,pseudo);
     }
 
     public void reinitialiserParam(String id)

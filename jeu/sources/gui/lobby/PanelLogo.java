@@ -33,7 +33,7 @@ public class PanelLogo extends JPanel implements ActionListener
             if (pseudo.contains("BOT"))
                 this.pseudo = "bot";
         this.init();
-        if (!pseudo.equals("personne"))
+        if (!pseudo.equals("personne") && !pseudo.equals(this.c.getPseudo()))
         {
             this.add(this.btnExclure);
             this.btnExclure.addActionListener(this);

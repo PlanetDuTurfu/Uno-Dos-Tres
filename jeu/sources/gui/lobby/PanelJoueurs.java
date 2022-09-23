@@ -29,8 +29,7 @@ public class PanelJoueurs extends JPanel implements ActionListener
 		this.pnlLogos[1] = new PanelLogo(this.c);
 		this.pnlLogos[2] = new PanelLogo(this.c);
 		this.pnlLogos[3] = new PanelLogo(this.c);
-		this.pnlLogos[0].setLogo("moi");
-		this.pnlLogos[0].removeBtn();
+		this.pnlLogos[0].setLogo(this.c.getPseudo());
 		this.add(this.pnlLogos[0]);
 		this.add(this.pnlLogos[1]);
 		this.add(this.pnlLogos[2]);
@@ -59,10 +58,7 @@ public class PanelJoueurs extends JPanel implements ActionListener
 	public void reinitialiser()
 	{
 		for (int i = 1; i < this.pnlLogos.length; i++)
-		{
-			pnlLogos[i].removeBtn();
 			pnlLogos[i].setLogo("personne");
-		}
 	}
 
 	public void actionPerformed(ActionEvent e)
@@ -73,12 +69,10 @@ public class PanelJoueurs extends JPanel implements ActionListener
 			for (int i = 0; i < tabP.length; i++)
 			{
 				this.pnlLogos[i].setLogo(tabP[i]);
-				if (i == 0) this.pnlLogos[i].removeBtn();
 			}
 			for (int i = 3; i > tabP.length; i--)
 			{
 				this.pnlLogos[i].setLogo("personne");
-				this.pnlLogos[i].removeBtn();
 			}
 		}
 

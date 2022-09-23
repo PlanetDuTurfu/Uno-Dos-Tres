@@ -11,13 +11,21 @@ import java.awt.event.ActionListener;
 
 public class PanelPartie extends JPanel implements ActionListener
 {
+    private Controleur c;
+
     public PanelPartie(Controleur c)
     {
+        this.c = c;
         this.setOpaque(false);
     }
 
     public void setRatio(float ratio)
     {
+    }
+
+    public void pret()
+    {
+        this.c.setPret(this.c.getID(),this.c.getPseudo());
     }
 
     public void actionPerformed(ActionEvent e)

@@ -14,6 +14,7 @@ public class PanelP3 extends JPanel implements ActionListener
     private Controleur c;
     private JButton btnLancer;
 	private JButton btnReinitialiser;
+    private boolean dejaLance = false;
 
     public PanelP3(Controleur c)
     {
@@ -38,15 +39,21 @@ public class PanelP3 extends JPanel implements ActionListener
         this.btnLancer = new JButton(new ImageIcon(new ImageIcon("./img/lancer.png").getImage().getScaledInstance((int)(288*ratio),(int)(162*ratio), Image.SCALE_DEFAULT)));
         this.add(this.btnReinitialiser);
         this.add(this.btnLancer);
+        this.btnReinitialiser.addActionListener(this);
         this.btnReinitialiser.setBorderPainted(false);
         this.btnReinitialiser.setContentAreaFilled(false);
+        this.btnLancer.addActionListener(this);
         this.btnLancer.setBorderPainted(false);
         this.btnLancer.setContentAreaFilled(false);
     }
 
     public void actionPerformed(ActionEvent e)
     {
-        if (e.getSource().equals(this.btnLancer)) this.c.lancerPartie(this.c.getID());
+        if (e.getSource().equals(this.btnLancer) && !this.dejaLance)
+        {
+            this.dejaLance = true;
+            this.c.lancerPartie(this.c.getID());
+        }
         else if (e.getSource().equals(this.btnReinitialiser)) this.c.reinitialiserParam(this.c.getID());
     }
 }

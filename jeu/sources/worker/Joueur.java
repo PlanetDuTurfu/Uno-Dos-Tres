@@ -9,11 +9,13 @@ public class Joueur
     private String pseudo;
     private ArrayList<Carte> main;
     private boolean robot;
+    private boolean pret;
 
     public Joueur(String pseudo, boolean robot)
     {
         this.pseudo = pseudo;
         this.robot = robot;
+        this.pret = robot;
         this.main = new ArrayList<Carte>();
     }
 
@@ -31,6 +33,16 @@ public class Joueur
     public boolean estRobot()
     {
         return this.robot;
+    }
+
+    public void setPret()
+    {
+        this.pret = true;
+    }
+
+    public boolean estPret()
+    {
+        return this.pret;
     }
 
     public boolean peutJouer(Carte c)
