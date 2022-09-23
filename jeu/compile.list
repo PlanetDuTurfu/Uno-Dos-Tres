@@ -15,3 +15,4 @@
 ./sources/worker/Carte.java
 ./sources/worker/Worker.java
 ./sources/worker/Joueur.java
+./sources/worker/Partie.java

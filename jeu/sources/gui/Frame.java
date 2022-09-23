@@ -38,7 +38,7 @@ public class Frame extends JFrame
 		this.setSize(1600,900);
 
 		this.setLayout(new BorderLayout());
-		this.lblImage = new JLabel(new ImageIcon(new ImageIcon("./img/uno_dos_tres.jpg").getImage().getScaledInstance((int)(1600*this.ratio),(int)(900*this.ratio), Image.SCALE_DEFAULT)));
+		this.lblImage = new JLabel(new ImageIcon(new ImageIcon("./img/uno_dos_tres.jpg").getImage().getScaledInstance((int)(1600),(int)(900), Image.SCALE_DEFAULT)));
         this.setContentPane(this.lblImage);
         this.setLayout(new FlowLayout());
 
@@ -58,8 +58,9 @@ public class Frame extends JFrame
 	public void setRatio(float ratio)
 	{
 		this.ratio = ratio;
-		if (this.pnlAccueil != null) this.pnlAccueil.setRatio(ratio);
-		if (this.pnlLobby != null) this.pnlLobby.setRatio(ratio);
+		this.pnlAccueil.setRatio(ratio);
+		this.pnlLobby.setRatio(ratio);
+		this.pnlEchap.setRatio(ratio);
 	}
 
 	public String getID()

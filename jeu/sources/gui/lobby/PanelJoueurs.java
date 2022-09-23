@@ -31,30 +31,29 @@ public class PanelJoueurs extends JPanel implements ActionListener
 		this.pnlLogos[3] = new PanelLogo(this.c);
 		this.pnlLogos[0].setLogo("moi");
 		this.pnlLogos[0].removeBtn();
-		this.btnAddBot = new JButton(new ImageIcon(new ImageIcon("./img/ajouter.png").getImage().getScaledInstance((int)(192*ratio),(int)(108*ratio), Image.SCALE_DEFAULT)));
-		this.btnAddBot.setBorderPainted(false);
-		this.btnAddBot.setContentAreaFilled(false);
-
 		this.add(this.pnlLogos[0]);
 		this.add(this.pnlLogos[1]);
 		this.add(this.pnlLogos[2]);
 		this.add(this.pnlLogos[3]);
-		this.add(this.btnAddBot);
-		this.btnAddBot.addActionListener(this);
-
+		this.init(1);
 		this.setOpaque(false);
 	}
 
 	public void setRatio(float ratio)
 	{
 		this.remove(this.btnAddBot);
+		this.init(ratio);
+		for (PanelLogo pl : this.pnlLogos)
+			pl.setRatio(ratio);
+	}
+
+	private void init(float ratio)
+	{
 		this.btnAddBot = new JButton(new ImageIcon(new ImageIcon("./img/ajouter.png").getImage().getScaledInstance((int)(192*ratio),(int)(108*ratio), Image.SCALE_DEFAULT)));
 		this.btnAddBot.setBorderPainted(false);
 		this.btnAddBot.setContentAreaFilled(false);
 		this.btnAddBot.addActionListener(this);
 		this.add(this.btnAddBot);
-		for (PanelLogo pl : this.pnlLogos)
-			pl.setRatio(ratio);
 	}
 
 	public void reinitialiser()

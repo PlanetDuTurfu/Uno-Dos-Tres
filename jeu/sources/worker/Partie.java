@@ -20,6 +20,7 @@ public class Partie
     private boolean stackers;
     private boolean partieRapide;
     private boolean equipes;
+    private int nbCartesDansLaPioche;
 
     public Partie(String id, Joueur j)
     {
@@ -67,9 +68,9 @@ public class Partie
         return sRet.substring(0,sRet.length()-1);
     }
 
-    public char getCharBot()
+    public int getCharBot()
     {
-        return (char)((int)(bot)++);
+        return bot++;
     }
 
     public void reinitialiserParam()
@@ -100,19 +101,20 @@ public class Partie
         this.equipes = b;
     }
 
+// Après le début de la partie
     public void demarrer()
     {
         this.init();
         this.distribuer();
+        this.premiereCarte();
+        this.joueurActuel = this.joueurs.get((int)(Math.random()*this.joueurs.size()));
+        System.out.println("Première carte : " + this.lastCarte + ".");
         for (Joueur j : this.joueurs)
         {
             j.trierCartes();
             System.out.println(j.toString());
         }
-        this.premiereCarte();
-        this.joueurActuel = this.joueurs.get((int)(Math.random()*this.joueurs.size()));
         System.out.println(this.joueurActuel.getPseudo() + " commence à jouer.");
-        System.out.println("Première carte : " + this.lastCarte + ".");
 
         while(!this.fini)
         {
@@ -147,7 +149,6 @@ public class Partie
         }
     }
 
-// Après le début de la partie
     private void init()
     {
         // Numéros
@@ -173,15 +174,21 @@ public class Partie
         this.cartes.add(new Carte("p2",'J'));
         this.cartes.add(new Carte("p2",'V'));
         this.cartes.add(new Carte("p2",'B'));
+        this.nbCartesDansLaPioche = 52;
         // Stacker
-        this.cartes.add(new Carte("st",'R'));
-        this.cartes.add(new Carte("st",'J'));
-        this.cartes.add(new Carte("st",'V'));
-        this.cartes.add(new Carte("st",'B'));
+        if (this.stackers)
+        {
+            this.cartes.add(new Carte("st",'R'));
+            this.cartes.add(new Carte("st",'J'));
+            this.cartes.add(new Carte("st",'V'));
+            this.cartes.add(new Carte("st",'B'));
+            this.nbCartesDansLaPioche += 4;
+        }
         // Changements de couleur
         this.cartes.add(new Carte("cc",'N'));
         // +4
         this.cartes.add(new Carte("p4",'N'));
+        this.nbCartesDansLaPioche += 2;
     }
 
     private void distribuer()
@@ -193,7 +200,7 @@ public class Partie
 
     private Carte carteHasard()
     {
-        return this.cartes.get((int)(Math.random()*58));
+        return this.cartes.get((int)(Math.random()*this.nbCartesDansLaPioche));
     }
 
     public void premiereCarte()

@@ -21,16 +21,9 @@ public class PanelLobby extends JPanel implements ActionListener
     public PanelLobby(Controleur c)
     {
         this.c = c;
-
         this.pnlJoueurs = new PanelJoueurs(c);
         this.pnlParam = new PanelParametres(c);
-
         this.init(1);
-
-        this.btnBack.addActionListener(this);
-        this.btnBack.setBorderPainted(false);
-        this.btnBack.setContentAreaFilled(false);
-
         this.setOpaque(false);
     }
 
@@ -56,6 +49,9 @@ public class PanelLobby extends JPanel implements ActionListener
         this.add(this.trsp1);
         this.add(this.trsp2);
         this.add(this.pnlParam);
+        this.btnBack.addActionListener(this);
+        this.btnBack.setBorderPainted(false);
+        this.btnBack.setContentAreaFilled(false);
     }
 
     public void reinitialiserParam()
