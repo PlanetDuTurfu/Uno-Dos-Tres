@@ -1,5 +1,6 @@
 package sources.worker;
 
+import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -16,8 +17,8 @@ public class Partie
     private boolean fini;
 
     // Paramètres de partie
-    private boolean piocheMultiple;
-    private boolean stackers;
+    private boolean piocheMultiple = false;
+    private boolean stackers = true;
     private boolean partieRapide;
     private boolean equipes;
     private int nbCartesDansLaPioche;
@@ -28,7 +29,6 @@ public class Partie
         this.cartes = new ArrayList<Carte>();
         this.joueurs = new ArrayList<Joueur>();
         this.joueurs.add(j);
-        this.piocheMultiple = false;
         this.fini = false;
         this.sensHoraire = 1;
         this.pileAddition = 0;
@@ -116,6 +116,8 @@ public class Partie
         }
         System.out.println(this.joueurActuel.getPseudo() + " commence à jouer.");
 
+        Scanner sc = new Scanner(System.in);
+
         while(!this.fini)
         {
             // S'il y a un +2, +4... de posé
@@ -132,19 +134,22 @@ public class Partie
                 else if (this.joueurActuel.estRobot())
                     this.jouerCarte(this.joueurActuel.jouerAleatoire());
             }
-            else if (this.joueurActuel.estRobot())
+            else if (this.joueurActuel.peutJouer(this.lastCarte))
             {
-                if (this.joueurActuel.peutJouer(this.lastCarte)) this.jouerCarte(this.joueurActuel.jouerAleatoire());
-                else this.piocher(0);
+                if (this.joueurActuel.estRobot()) this.jouerCarte(this.joueurActuel.jouerAleatoire());
+                else
+                {
+                    int indice = Integer.parseInt(sc.nextLine());
+                    Carte c = this.joueurActuel.getCarte(indice);
+                    if (c == null) this.jouerCarte(this.carteHasard());
+                    else this.jouerCarte(c);
+                }
             }
-            else
-            {
-
-            }
+            else this.piocher(0);
 
             for (Joueur j : this.joueurs)
                 System.out.println(j.toString());
-            try { Thread.sleep(500); } catch(Exception e) {}
+            try { Thread.sleep(1000); } catch(Exception e) {}
             this.prochainTour();
         }
     }
@@ -160,11 +165,19 @@ public class Partie
             this.cartes.add(new Carte(i+"",'B'));
         }
         // Changement de sens
-        this.cartes.add(new Carte("cs",'R'));
-        this.cartes.add(new Carte("cs",'J'));
-        this.cartes.add(new Carte("cs",'V'));
-        this.cartes.add(new Carte("cs",'B'));
+        this.cartes.add(new Carte("si",'R'));
+        this.cartes.add(new Carte("si",'J'));
+        this.cartes.add(new Carte("si",'V'));
+        this.cartes.add(new Carte("si",'B'));
+        this.cartes.add(new Carte("si",'R'));
+        this.cartes.add(new Carte("si",'J'));
+        this.cartes.add(new Carte("si",'V'));
+        this.cartes.add(new Carte("si",'B'));
         // Sens interdit
+        this.cartes.add(new Carte("si",'R'));
+        this.cartes.add(new Carte("si",'J'));
+        this.cartes.add(new Carte("si",'V'));
+        this.cartes.add(new Carte("si",'B'));
         this.cartes.add(new Carte("si",'R'));
         this.cartes.add(new Carte("si",'J'));
         this.cartes.add(new Carte("si",'V'));
@@ -174,7 +187,11 @@ public class Partie
         this.cartes.add(new Carte("p2",'J'));
         this.cartes.add(new Carte("p2",'V'));
         this.cartes.add(new Carte("p2",'B'));
-        this.nbCartesDansLaPioche = 52;
+        this.cartes.add(new Carte("p2",'R'));
+        this.cartes.add(new Carte("p2",'J'));
+        this.cartes.add(new Carte("p2",'V'));
+        this.cartes.add(new Carte("p2",'B'));
+        this.nbCartesDansLaPioche = 64;
         // Stacker
         if (this.stackers)
         {
@@ -182,13 +199,19 @@ public class Partie
             this.cartes.add(new Carte("st",'J'));
             this.cartes.add(new Carte("st",'V'));
             this.cartes.add(new Carte("st",'B'));
-            this.nbCartesDansLaPioche += 4;
+            this.cartes.add(new Carte("st",'R'));
+            this.cartes.add(new Carte("st",'J'));
+            this.cartes.add(new Carte("st",'V'));
+            this.cartes.add(new Carte("st",'B'));
+            this.nbCartesDansLaPioche += 8;
         }
         // Changements de couleur
         this.cartes.add(new Carte("cc",'N'));
+        this.cartes.add(new Carte("cc",'N'));
         // +4
         this.cartes.add(new Carte("p4",'N'));
-        this.nbCartesDansLaPioche += 2;
+        this.cartes.add(new Carte("p4",'N'));
+        this.nbCartesDansLaPioche += 4;
     }
 
     private void distribuer()

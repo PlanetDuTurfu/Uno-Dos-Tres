@@ -22,6 +22,12 @@ public class Joueur
         return this.pseudo;
     }
 
+    public Carte getCarte(int ind)
+    {
+        try { return this.main.get(ind); }
+        catch(Exception e) { return null; }
+    }
+
     public boolean estRobot()
     {
         return this.robot;

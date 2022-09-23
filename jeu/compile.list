@@ -11,6 +11,7 @@
 ./sources/gui/lobby/PanelLogo.java
 ./sources/gui/lobby/PanelP1.java
 ./sources/gui/lobby/PanelP3.java
+./sources/gui/lobby/PanelID.java
 ./sources/gui/partie/PanelPartie.java
 ./sources/worker/Carte.java
 ./sources/worker/Worker.java

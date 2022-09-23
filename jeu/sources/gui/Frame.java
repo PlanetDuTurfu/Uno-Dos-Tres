@@ -38,7 +38,7 @@ public class Frame extends JFrame
 		this.setSize(1600,900);
 
 		this.setLayout(new BorderLayout());
-		this.lblImage = new JLabel(new ImageIcon(new ImageIcon("./img/uno_dos_tres.jpg").getImage().getScaledInstance((int)(1600),(int)(900), Image.SCALE_DEFAULT)));
+		this.lblImage = new JLabel(new ImageIcon(new ImageIcon("./img/uno_dos_tres.jpg").getImage().getScaledInstance(1600,900, Image.SCALE_DEFAULT)));
         this.setContentPane(this.lblImage);
         this.setLayout(new FlowLayout());
 
@@ -58,6 +58,7 @@ public class Frame extends JFrame
 	public void setRatio(float ratio)
 	{
 		this.ratio = ratio;
+		this.lblImage.setIcon(new ImageIcon(new ImageIcon("./img/uno_dos_tres.jpg").getImage().getScaledInstance((int)(1600*this.ratio),(int)(900*this.ratio), Image.SCALE_DEFAULT)));
 		this.pnlAccueil.setRatio(ratio);
 		this.pnlLobby.setRatio(ratio);
 		this.pnlEchap.setRatio(ratio);
@@ -70,7 +71,6 @@ public class Frame extends JFrame
 
 	public void resize()
 	{
-		this.lblImage.setIcon(new ImageIcon(new ImageIcon("./img/uno_dos_tres.jpg").getImage().getScaledInstance((int)(1600*this.ratio),(int)(900*this.ratio), Image.SCALE_DEFAULT)));
 		this.setSize((int)(1599*this.ratio),(int)(899*this.ratio));
 		this.setSize((int)(1600*this.ratio),(int)(900*this.ratio));
 	}

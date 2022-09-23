@@ -55,9 +55,9 @@ public class Worker
         String sRet = "";
         switch ((int)(Math.random() * 3))
         {
-            case 0 : sRet =(id0++) + id1 +""+ id2; break;
-            case 1 : sRet =id0 + (id1++) +""+ id2; break;
-            case 2 : sRet =id0 + id1 +""+ (id2++);
+            case 0 : sRet =(id0++) +""+ id1 +""+ id2; break;
+            case 1 : sRet =id0 +""+ (id1++) +""+ id2; break;
+            case 2 : sRet =id0 +""+ id1 +""+ (id2++);
         }
         this.parties.add(new Partie(sRet, new Joueur("moi", false)));
         return sRet;
