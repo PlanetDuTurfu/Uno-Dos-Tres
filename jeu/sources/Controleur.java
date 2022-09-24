@@ -56,9 +56,14 @@ public class Controleur
         return this.work.getNewID();
     }
 
-    public int getNbJoueurs(String idPartie)
+    public String getPseudo()
     {
-        return this.work.getNbJoueurs(idPartie);
+        return this.pseudo;
+    }
+
+    public int getNbJoueurs(String id)
+    {
+        return this.work.getNbJoueurs(id);
     }
 
     public String getPseudos(String id)
@@ -66,19 +71,15 @@ public class Controleur
         return this.work.getPseudos(id);
     }
 
-    public String getPseudo()
+    public boolean addBot(String id)
     {
-        return this.pseudo;
+        return this.work.addBotTo(id);
     }
 
-    public boolean addBot(String idPartie)
+    public void reinitialiserParam(String id)
     {
-        return this.work.addBotTo(idPartie);
-    }
-
-    public void exclure(String id, String pseudo)
-    {
-        this.work.exclure(id,pseudo);
+        this.gui.reinitialiserParam();
+        this.work.reinitialiserParam(id);
     }
 
     public void lancerPartie(String id)
@@ -87,15 +88,14 @@ public class Controleur
         this.gui.partie();
     }
 
+    public void exclure(String id, String pseudo)
+    {
+        this.work.exclure(id,pseudo);
+    }
+
     public void setPret(String id, String pseudo)
     {
         this.work.setPret(id,pseudo);
-    }
-
-    public void reinitialiserParam(String id)
-    {
-        this.gui.reinitialiserParam();
-        this.work.reinitialiserParam(id);
     }
 
     public void PM(String id, boolean b)
