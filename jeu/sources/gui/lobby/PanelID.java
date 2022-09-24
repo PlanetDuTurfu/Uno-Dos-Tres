@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,7 +42,7 @@ public class PanelID extends JPanel implements ActionListener
     private void init()
     {
         this.btnCopierID = new JButton(new ImageIcon(new ImageIcon("./img/copierID.png").getImage().getScaledInstance((int)(144*ratio),(int)(81*ratio), Image.SCALE_DEFAULT)));
-        if (this.afficheID) this.btnID = new JButton(new ImageIcon(new ImageIcon("./img/imgID.png").getImage().getScaledInstance((int)(144*this.ratio),(int)(81*this.ratio), Image.SCALE_DEFAULT)));
+        if (this.afficheID) this.btnID = new JButton(this.c.getID(), new ImageIcon(new ImageIcon("./img/imgID.png").getImage().getScaledInstance((int)(144*this.ratio),(int)(81*this.ratio), Image.SCALE_DEFAULT)));
         else this.btnID = new JButton(new ImageIcon(new ImageIcon("./img/eee.png").getImage().getScaledInstance((int)(144*this.ratio),(int)(81*this.ratio), Image.SCALE_DEFAULT)));
         this.trsp1 = new JLabel(new ImageIcon(new ImageIcon("./img/transparent.png").getImage().getScaledInstance((int)(144*ratio),(int)(81*ratio), Image.SCALE_DEFAULT)));
         this.add(this.btnCopierID);
@@ -75,10 +76,17 @@ public class PanelID extends JPanel implements ActionListener
             this.afficheID = !this.afficheID;
             this.removeTout();
             if (this.afficheID)
-                this.btnID = new JButton(new ImageIcon(new ImageIcon("./img/imgID.png").getImage().getScaledInstance((int)(144*this.ratio),(int)(81*this.ratio), Image.SCALE_DEFAULT)));
+                this.btnID = new JButton(this.c.getID(),new ImageIcon(new ImageIcon("./img/imgID.png").getImage().getScaledInstance((int)(144*this.ratio),(int)(81*this.ratio), Image.SCALE_DEFAULT)));
             else
                 this.btnID = new JButton(new ImageIcon(new ImageIcon("./img/eee.png").getImage().getScaledInstance((int)(144*this.ratio),(int)(81*this.ratio), Image.SCALE_DEFAULT)));
             this.init();
         }
+    }
+
+    @Override
+    protected void paintComponent(final Graphics g)
+    {
+        super.paintComponent(g);
+        g.drawImage(new ImageIcon(new ImageIcon("./img/imgID.png").getImage().getScaledInstance(this.getWidth(),this.getHeight()/8, Image.SCALE_DEFAULT)).getImage(), 0, 0, null);
     }
 }

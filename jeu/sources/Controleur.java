@@ -66,6 +66,11 @@ public class Controleur
         return this.work.getNbJoueurs(id);
     }
 
+    public int getNbCartes(String id, String pseudo)
+    {
+        this.work.getNbCartes(id,pseudo);
+    }
+
     public String getPseudos(String id)
     {
         return this.work.getPseudos(id);

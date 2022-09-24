@@ -30,6 +30,11 @@ public class Joueur
         catch(Exception e) { return null; }
     }
 
+    public int getNbCartes()
+    {
+        return this.main.size();
+    }
+
     public boolean estRobot()
     {
         return this.robot;

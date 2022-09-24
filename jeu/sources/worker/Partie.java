@@ -20,7 +20,7 @@ public class Partie
     private boolean stackers = true;
     private boolean partieRapide;
     private boolean equipes;
-    private int nbCartesDansLaPioche;
+    private int nbCartesDansLaPioche = 0;
 
     public Partie(String id, Joueur j)
     {
@@ -47,6 +47,13 @@ public class Partie
     public int getNbJoueurs()
     {
         return this.joueurs.size();
+    }
+
+    public int getNbCartes(String pseudo)
+    {
+        for (Joueur j : this.joueurs)
+            if (j.getPseudo().equals(pseudo)) return j.getNbCartes();
+        return 4;
     }
 
     public void exclure(String pseudo)
@@ -103,6 +110,7 @@ public class Partie
 // Après le début de la partie
     public void demarrer()
     {
+        this.init();
         this.init();
         this.distribuer();
         this.premiereCarte();
@@ -176,7 +184,7 @@ public class Partie
         this.cartes.add(new Carte("p2",'J'));
         this.cartes.add(new Carte("p2",'V'));
         this.cartes.add(new Carte("p2",'B'));
-        this.nbCartesDansLaPioche = 64;
+        this.nbCartesDansLaPioche += 64;
         // Stacker
         if (this.stackers)
         {

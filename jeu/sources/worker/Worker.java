@@ -70,6 +70,13 @@ public class Worker
         return 4;
     }
 
+    public int getNbCartes(String id, String pseudo)
+    {
+        for (Partie p : this.parties)
+            if (p.getID().equals(id)) return p.getNbCartes(pseudo);
+        return 4;
+    }
+
     public void lancerPartie(String id)
     {
         for (Partie p : this.parties)
