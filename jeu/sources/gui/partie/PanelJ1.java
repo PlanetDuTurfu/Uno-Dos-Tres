@@ -39,9 +39,9 @@ public class PanelJ1 extends JPanel /*implements ActionListener*/
         {
             s = s.replace("[","");
             s = s.replace("]","");
-            this.cartes.add(new ClientCarte(s.split(" ")[0],s.split(" ")[1].charAt(0)));
+            this.cartes.add(new ClientCarte(s.split(" ")[0],s.split(" ")[1].charAt(0), false));
         }
-        this.setLayout(new GridLayout(this.cartes.size(),1));
+        this.setLayout(new GridLayout(1,this.cartes.size(),0,0));
         for (ClientCarte cc : this.cartes)
         {
             this.add(cc);

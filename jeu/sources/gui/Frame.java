@@ -117,6 +117,8 @@ public class Frame extends JFrame
 	public void partie()
 	{
 		this.remove(this.actualPanel);
+		// this.lblImage = new JLabel(new ImageIcon(new ImageIcon("./img/partie.jpg").getImage().getScaledInstance((int)(this.ratio*1600),(int)(this.ratio*900), Image.SCALE_DEFAULT)));
+		// this.setContentPane(this.lblImage);
 		this.lastPanel = this.actualPanel;
 		this.actualPanel = this.pnlPartie;
 		this.add(this.actualPanel);

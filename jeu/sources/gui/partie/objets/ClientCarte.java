@@ -1,6 +1,7 @@
 package sources.gui.partie.objets;
 
 import javax.swing.JPanel;
+import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.Image;
@@ -13,13 +14,18 @@ public class ClientCarte extends JPanel implements ActionListener
     private String val;
     private char coul;
     private JButton btnCarte;
+    private JLabel trsp;
 
-    public ClientCarte(String val, char coul)
+    public ClientCarte(String val, char coul, boolean deco)
     {
         this.jouable = false;
         this.val = val;
         this.coul = coul;
-        this.btnCarte = new JButton(new ImageIcon(new ImageIcon("./img/cartes/"+val+coul+".jpg").getImage().getScaledInstance(54,96, Image.SCALE_DEFAULT)));
+        if (!deco) {
+            this.trsp = new JLabel(new ImageIcon(new ImageIcon("./img/transparent.png").getImage().getScaledInstance(100,54, Image.SCALE_DEFAULT)));
+            this.add(this.trsp);
+        }
+        this.btnCarte = new JButton(new ImageIcon(new ImageIcon("./img/cartes/"+val+coul+".jpg").getImage().getScaledInstance(108,192, Image.SCALE_DEFAULT)));
         this.btnCarte.setBorderPainted(false);
         this.btnCarte.setContentAreaFilled(false);
         this.add(this.btnCarte);

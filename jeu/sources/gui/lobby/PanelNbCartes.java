@@ -74,7 +74,7 @@ public class PanelNbCartes extends JPanel implements ActionListener
     public void actionPerformed(ActionEvent e)
     {
         if (e.getSource().equals(this.btnPlus)) this.c.nbCartesParJoueur(++this.nbCartesParJoueur);
-        else this.c.nbCartesParJoueur(--this.nbCartesParJoueur);
+        else if (this.nbCartesParJoueur > 0) this.c.nbCartesParJoueur(--this.nbCartesParJoueur);
         this.removeBtn();
         this.init();
     }

@@ -76,7 +76,7 @@ public class PanelL2 extends JPanel
             }
         }
 
-        this.lastCarte = new ClientCarte(this.c.getValLastCarte(),this.c.getCoulLastCarte());
+        this.lastCarte = new ClientCarte(this.c.getValLastCarte(),this.c.getCoulLastCarte(), true);
 
         this.add(this.pnlJ2);
         this.add(this.trsp1);

@@ -113,6 +113,7 @@ public class Partie
         this.init();
         this.init();
         this.distribuer();
+        for (Joueur j : this.joueurs) j.trierCartes();
         this.premiereCarte();
         this.joueurActuel = this.joueurs.get((int)(Math.random()*this.joueurs.size()));
     }
@@ -146,10 +147,7 @@ public class Partie
         {
             System.out.println("Première carte : " + this.lastCarte + ".");
             for (Joueur j : this.joueurs)
-            {
-                j.trierCartes();
                 System.out.println(j.toString());
-            }
             System.out.println(this.joueurActuel.getPseudo() + " commence à jouer.");
             this.jouerBot();
         }
