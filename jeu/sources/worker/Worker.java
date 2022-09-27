@@ -70,11 +70,25 @@ public class Worker
         return 4;
     }
 
-    public int getNbCartes(String id, String pseudo)
+    public String[] getCartes(String id, String pseudo)
     {
         for (Partie p : this.parties)
-            if (p.getID().equals(id)) return p.getNbCartes(pseudo);
-        return 4;
+            if (p.getID().equals(id)) return p.getCartes(pseudo);
+        return new String[0];
+    }
+
+    public char getCoulLastCarte(String id)
+    {
+        for (Partie p : this.parties)
+            if (p.getID().equals(id)) return p.getCoulLastCarte();
+        return 'N';
+    }
+
+    public String getValLastCarte(String id)
+    {
+        for (Partie p : this.parties)
+            if (p.getID().equals(id)) return p.getValLastCarte();
+        return "CC";
     }
 
     public void lancerPartie(String id)
@@ -89,6 +103,7 @@ public class Worker
             if (p.getID().equals(id)) p.setPret(pseudo);
     }
 
+// Paramètres de partie
     public void reinitialiserParam(String id)
     {
         for (Partie p : this.parties)
@@ -117,5 +132,11 @@ public class Worker
     {
         for (Partie p : this.parties)
             if (p.getID().equals(id)) p.EQ(b);
+    }
+
+    public void nbCartesParJoueur(String id, int n)
+    {
+        for (Partie p : this.parties)
+            if (p.getID().equals(id)) p.nbCartesParJoueur(n);
     }
 }

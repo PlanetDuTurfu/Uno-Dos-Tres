@@ -52,8 +52,8 @@ public class PanelP3 extends JPanel implements ActionListener
         if (e.getSource().equals(this.btnLancer) && !this.dejaLance)
         {
             this.dejaLance = true;
-            this.c.lancerPartie(this.c.getID());
+            this.c.lancerPartie();
         }
-        else if (e.getSource().equals(this.btnReinitialiser)) this.c.reinitialiserParam(this.c.getID());
+        else if (e.getSource().equals(this.btnReinitialiser)) this.c.reinitialiserParam();
     }
 }

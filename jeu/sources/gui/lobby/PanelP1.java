@@ -21,12 +21,14 @@ public class PanelP1 extends JPanel implements ActionListener
 	private boolean bs = true;
 	private boolean bpr = false;
 	private boolean be = false;
+	private PanelNbCartes pnlNbCartes;
 
 	public PanelP1(Controleur c)
 	{
 		this.c = c;
 		this.ratio = 1;
-        this.setLayout(new GridLayout(2,2,20,20));
+        this.setLayout(new GridLayout(2,3,15,15));
+		this.pnlNbCartes = new PanelNbCartes(c);
 		this.addBtns();
 		this.setOpaque(false);
 	}
@@ -35,7 +37,8 @@ public class PanelP1 extends JPanel implements ActionListener
 	{
 		this.ratio = ratio;
 		this.removeBtn();
-		this.setLayout(new GridLayout(2,2,(int)(20*this.ratio),(int)(20*this.ratio)));
+		this.setLayout(new GridLayout(2,3,(int)(15*this.ratio),(int)(15*this.ratio)));
+		this.pnlNbCartes.setRatio(ratio);
 		this.addBtns();
 		this.c.resize();
 	}
@@ -47,6 +50,7 @@ public class PanelP1 extends JPanel implements ActionListener
 		this.bs = true;
 		this.bpr = false;
 		this.be = false;
+		this.pnlNbCartes.reinitialiser();
 		this.addBtns();
 		this.c.resize();
 	}
@@ -57,6 +61,7 @@ public class PanelP1 extends JPanel implements ActionListener
 		this.remove(this.stackers);
 		this.remove(this.partieRapide);
 		this.remove(this.equipes);
+		this.remove(this.pnlNbCartes);
 	}
 
 	private void addBtns()
@@ -73,10 +78,7 @@ public class PanelP1 extends JPanel implements ActionListener
 		this.add(this.stackers);
 		this.add(this.partieRapide);
 		this.add(this.equipes);
-		this.piocheMultiple.addActionListener(this);
-		this.stackers.addActionListener(this);
-		this.partieRapide.addActionListener(this);
-		this.equipes.addActionListener(this);	
+		this.add(this.pnlNbCartes);
         this.piocheMultiple.setBorderPainted(false);
 		this.stackers.setBorderPainted(false);
 		this.partieRapide.setBorderPainted(false);
@@ -85,6 +87,10 @@ public class PanelP1 extends JPanel implements ActionListener
 		this.stackers.setContentAreaFilled(false);
 		this.partieRapide.setContentAreaFilled(false);
 		this.equipes.setContentAreaFilled(false);
+		this.piocheMultiple.addActionListener(this);
+		this.stackers.addActionListener(this);
+		this.partieRapide.addActionListener(this);
+		this.equipes.addActionListener(this);
 	}
 
 	public void actionPerformed(ActionEvent e)
@@ -93,22 +99,22 @@ public class PanelP1 extends JPanel implements ActionListener
 		if (e.getSource().equals(this.piocheMultiple))
 		{
 			this.bpm = !this.bpm;
-			this.c.PM(this.c.getID(),this.bpm);
+			this.c.PM(this.bpm);
 		}
 		else if (e.getSource().equals(this.stackers))
 		{
 			this.bs = !this.bs;
-			this.c.ST(this.c.getID(),this.bs);
+			this.c.ST(this.bs);
 		}
 		else if (e.getSource().equals(this.partieRapide))
 		{
 			this.bpr = !this.bpr;
-			this.c.PR(this.c.getID(),this.bpr);
+			this.c.PR(this.bpr);
 		}
 		else if (e.getSource().equals(this.equipes))
 		{
 			this.be = !this.be;
-			this.c.EQ(this.c.getID(),this.be);
+			this.c.EQ(this.be);
 		}
 		this.addBtns();
 		this.c.resize();

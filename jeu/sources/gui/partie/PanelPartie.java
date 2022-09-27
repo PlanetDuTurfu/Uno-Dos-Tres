@@ -1,84 +1,46 @@
 package sources.gui.partie;
 
 import sources.Controleur;
+import sources.gui.partie.objets.ClientCarte;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.GridLayout;
 
-public class PanelPartie extends JPanel implements ActionListener
+public class PanelPartie extends JPanel
 {
     private Controleur c;
+    private PanelL1 pnlL1;
+    private PanelL2 pnlL2;
     private PanelJ1 pnlJ1;
-    private PanelJ2 pnlJ2;
-    private PanelJ3 pnlJ3;
-    private PanelJ4 pnlJ4;
+    private float ratio = 1;
 
     public PanelPartie(Controleur c)
     {
         this.c = c;
+        this.setLayout(new GridLayout(3,1));
+        this.pnlL1 = new PanelL1(c);
+        this.pnlL2 = new PanelL2(c);
         this.pnlJ1 = new PanelJ1(c);
-        this.pnlJ2 = new PanelJ2(c);
-        this.pnlJ3 = new PanelJ3(c);
-        this.pnlJ4 = new PanelJ4(c);
         this.setOpaque(false);
     }
 
     public void setRatio(float ratio)
     {
+        this.pnlL1.setRatio(ratio);
+        this.pnlL2.setRatio(ratio);
+        this.pnlJ1.setRatio(ratio);
     }
 
     public void mettreEnPlace()
     {
-        int indiceMoi = 0;
-        String[] pseudos = this.c.getPseudos(this.c.getID()).split("¤");
-        if (pseudos[0].equals(this.c.getPseudo())) indiceMoi = 0;
-        if (pseudos[1].equals(this.c.getPseudo())) indiceMoi = 1;
-        if (pseudos[2].equals(this.c.getPseudo())) indiceMoi = 2;
-        if (pseudos[3].equals(this.c.getPseudo())) indiceMoi = 3;
-
-        if (indiceMoi == 0)
-        {
-            this.pnlJ1.mettreEnPlace(pseudos[0]);
-            this.pnlJ2.mettreEnPlace(pseudos[1]);
-            this.pnlJ3.mettreEnPlace(pseudos[2]);
-            this.pnlJ4.mettreEnPlace(pseudos[3]);
-        }
-
-        if (indiceMoi == 1)
-        {
-            this.pnlJ1.mettreEnPlace(pseudos[1]);
-            this.pnlJ2.mettreEnPlace(pseudos[2]);
-            this.pnlJ3.mettreEnPlace(pseudos[3]);
-            this.pnlJ4.mettreEnPlace(pseudos[0]);
-        }
-
-        if (indiceMoi == 2)
-        {
-            this.pnlJ1.mettreEnPlace(pseudos[2]);
-            this.pnlJ2.mettreEnPlace(pseudos[3]);
-            this.pnlJ3.mettreEnPlace(pseudos[0]);
-            this.pnlJ4.mettreEnPlace(pseudos[1]);
-        }
-
-        if (indiceMoi == 3)
-        {
-            this.pnlJ1.mettreEnPlace(pseudos[3]);
-            this.pnlJ2.mettreEnPlace(pseudos[0]);
-            this.pnlJ3.mettreEnPlace(pseudos[1]);
-            this.pnlJ4.mettreEnPlace(pseudos[2]);
-        }
-    }
-
-    public void pret()
-    {
-        this.c.setPret(this.c.getID(),this.c.getPseudo());
-    }
-
-    public void actionPerformed(ActionEvent e)
-    {
+        this.pnlL1.mettreEnPlace();
+        this.pnlL2.mettreEnPlace();
+        String[] pseudos = this.c.getPseudos().split("¤");
+        if (pseudos[0].equals(this.c.getPseudo())) this.pnlJ1.mettreEnPlace(pseudos[0]);
+        else if (pseudos[1].equals(this.c.getPseudo())) this.pnlJ1.mettreEnPlace(pseudos[1]);
+        else if (pseudos[2].equals(this.c.getPseudo())) this.pnlJ1.mettreEnPlace(pseudos[2]);
+        else if (pseudos[3].equals(this.c.getPseudo())) this.pnlJ1.mettreEnPlace(pseudos[3]);
+        this.add(this.pnlL1);
+        this.add(this.pnlL2);
+        this.add(this.pnlJ1);
     }
 }

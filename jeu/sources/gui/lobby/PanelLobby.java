@@ -44,7 +44,7 @@ public class PanelLobby extends JPanel implements ActionListener
     private void init(float ratio)
     {
         this.btnBack = new JButton(new ImageIcon(new ImageIcon("./img/back.png").getImage().getScaledInstance((int)(100*ratio),(int)(100*ratio), Image.SCALE_DEFAULT)));
-        this.trsp1 = new JLabel(new ImageIcon(new ImageIcon("./img/transparent.png").getImage().getScaledInstance((int)(384*ratio),(int)(216*ratio), Image.SCALE_DEFAULT)));
+        this.trsp1 = new JLabel(new ImageIcon(new ImageIcon("./img/transparent.png").getImage().getScaledInstance((int)(200*ratio),(int)(216*ratio), Image.SCALE_DEFAULT)));
         this.add(this.btnBack);
         this.add(this.pnlJoueurs);
         this.add(this.pnlID);

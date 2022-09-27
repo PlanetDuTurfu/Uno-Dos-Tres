@@ -63,9 +63,9 @@ public class PanelJoueurs extends JPanel implements ActionListener
 
 	public void actionPerformed(ActionEvent e)
 	{
-		if (this.c.addBot(this.c.getID()))
+		if (this.c.addBot())
 		{
-			String[] tabP = this.c.getPseudos(this.c.getID()).split("¤");
+			String[] tabP = this.c.getPseudos().split("¤");
 			for (int i = 0; i < tabP.length; i++)
 			{
 				this.pnlLogos[i].setLogo(tabP[i]);

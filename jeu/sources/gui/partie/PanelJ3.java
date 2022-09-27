@@ -16,35 +16,55 @@ public class PanelJ3 extends JPanel /*implements ActionListener*/
     private JLabel nbCarte;
     private JLabel fleche;
     private String pseudo = "personne";
-    private float ratio;
+    private float ratio = 1;
+    private boolean partieCommencee = false;
 
     public PanelJ3(Controleur c)
     {
         this.c = c;
-        this.btnProfil = new JButton(new ImageIcon(new ImageIcon("./img/"+this.pseudo+".jpg").getImage().getScaledInstance(100,100, Image.SCALE_DEFAULT)));
-        this.nbCarte = new JLabel(new ImageIcon(new ImageIcon("./img/nb_carte/0.png").getImage().getScaledInstance(100,100, Image.SCALE_DEFAULT)));
-        this.fleche = new JLabel(new ImageIcon(new ImageIcon("./img/flechetrsp.png").getImage().getScaledInstance(100,100, Image.SCALE_DEFAULT)));
-        this.add(this.nbCarte);
-        this.add(this.btnProfil);
-        this.add(this.fleche);
         this.setOpaque(false);
     }
 
     public void setRatio(float ratio)
     {
         this.ratio = ratio;
+        if (this.partieCommencee)
+        {
+            this.remove(this.btnProfil);
+            this.remove(this.nbCarte);
+            this.remove(this.fleche);
+            this.init();
+        }
+    }
+
+    private void init()
+    {
+        String pseudTmp = this.pseudo;
+        if (this.pseudo.contains("BOT")) this.pseudo = "bot";
         this.btnProfil = new JButton(new ImageIcon(new ImageIcon("./img/"+this.pseudo+".jpg").getImage().getScaledInstance((int)(100*this.ratio),(int)(100*this.ratio), Image.SCALE_DEFAULT)));
-        this.nbCarte = new JLabel(new ImageIcon(new ImageIcon("./img/nb_carte/0.png").getImage().getScaledInstance((int)(100*this.ratio),(int)(100*this.ratio), Image.SCALE_DEFAULT)));
+        this.pseudo = pseudTmp;
+        int nbCarte = this.c.getNbCartes(this.pseudo);
+        System.out.println("Carte de " + this.pseudo + " : " + nbCarte);
+        String snbCartes = "";
+        if (nbCarte < 16) snbCartes = "" + nbCarte;
+        if (nbCarte > 15) snbCartes = "+++";
+        if (nbCarte > 20) snbCartes = "bcp trop";
+        if (nbCarte > 25) snbCartes = "chaud";
+        if (nbCarte > 30) snbCartes = "record";
+        this.nbCarte = new JLabel(new ImageIcon(new ImageIcon("./img/nb_cartes/"+snbCartes+".png").getImage().getScaledInstance((int)(54*this.ratio),(int)(96*this.ratio), Image.SCALE_DEFAULT)));
         this.fleche = new JLabel(new ImageIcon(new ImageIcon("./img/flechetrsp.png").getImage().getScaledInstance((int)(100*this.ratio),(int)(100*this.ratio), Image.SCALE_DEFAULT)));
+        this.btnProfil.setBorderPainted(false);
+        this.btnProfil.setContentAreaFilled(false);
+        this.add(this.btnProfil);
+        this.add(this.nbCarte);
+        this.add(this.fleche);
     }
 
     public void mettreEnPlace(String pseudo)
     {
+        this.partieCommencee = true;
         this.pseudo = pseudo;
-        if (pseudo.contains("BOT")) this.pseudo = "bot";
-        this.btnProfil = new JButton(new ImageIcon(new ImageIcon("./img/"+this.pseudo+".jpg").getImage().getScaledInstance((int)(100*this.ratio),(int)(100*this.ratio), Image.SCALE_DEFAULT)));
-        this.nbCarte = new JLabel(new ImageIcon(new ImageIcon("./img/nb_carte/0.png").getImage().getScaledInstance((int)(100*this.ratio),(int)(100*this.ratio), Image.SCALE_DEFAULT)));
-        this.fleche = new JLabel(new ImageIcon(new ImageIcon("./img/flechetrsp.png").getImage().getScaledInstance((int)(100*this.ratio),(int)(100*this.ratio), Image.SCALE_DEFAULT)));
+        this.init();
     }
 
     // public void actionPerformed(ActionEvent e)

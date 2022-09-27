@@ -21,6 +21,7 @@ public class Partie
     private boolean partieRapide;
     private boolean equipes;
     private int nbCartesDansLaPioche = 0;
+    private int nbCartesParJoueur = 7;
 
     public Partie(String id, Joueur j)
     {
@@ -47,13 +48,6 @@ public class Partie
     public int getNbJoueurs()
     {
         return this.joueurs.size();
-    }
-
-    public int getNbCartes(String pseudo)
-    {
-        for (Joueur j : this.joueurs)
-            if (j.getPseudo().equals(pseudo)) return j.getNbCartes();
-        return 4;
     }
 
     public void exclure(String pseudo)
@@ -85,6 +79,7 @@ public class Partie
         this.stackers = true;
         this.partieRapide = false;
         this.equipes = false;
+        this.nbCartesParJoueur = 7;
     }
 
     public void PM(boolean b)
@@ -107,6 +102,11 @@ public class Partie
         this.equipes = b;
     }
 
+    public void nbCartesParJoueur(int n)
+    {
+        this.nbCartesParJoueur = n;
+    }
+
 // Après le début de la partie
     public void demarrer()
     {
@@ -115,6 +115,24 @@ public class Partie
         this.distribuer();
         this.premiereCarte();
         this.joueurActuel = this.joueurs.get((int)(Math.random()*this.joueurs.size()));
+    }
+
+    public String[] getCartes(String pseudo)
+    {
+        String[] s = new String[0];
+        for (Joueur j : this.joueurs)
+            if (j.getPseudo().equals(pseudo)) return j.getCartes();
+        return s;
+    }
+
+    public char getCoulLastCarte()
+    {
+        return this.lastCarte.getCouleur();
+    }
+
+    public String getValLastCarte()
+    {
+        return this.lastCarte.getValeur();
     }
 
     public void setPret(String pseudo)
@@ -210,7 +228,7 @@ public class Partie
     private void distribuer()
     {
         for (int j = 0; j < this.joueurs.size(); j++)
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < this.nbCartesParJoueur; i++)
                 this.joueurs.get(j).addCarte(this.carteHasard());
     }
 
@@ -363,11 +381,19 @@ public class Partie
 
     public void piocher(int nbCarte)
     {
+        // ArrayList<Joueur> vraiJoueurs = new ArrayList<Joueur>();
+        // for (Joueur j : this.joueurs)
+        //     if (!j.estRobot()) vraiJoueurs.add(j);
+
         if (nbCarte != 0)
         {
             System.out.println("Il pioche "+nbCarte+" cartes.\n\n\n");
             for (int i = 0; i < nbCarte; i++)
+            {
                 this.joueurActuel.addCarte(this.carteHasard());
+                System.out.println("pioche " + this.joueurActuel.getCarte(this.joueurActuel.getCartes().length - 1));
+                // this.serveur.send(this.joueurActuel.getCarte(this.joueurActuel.getNbCartes() - 1), vraiJoueurs.toArray());
+            }
         }
         else
         {

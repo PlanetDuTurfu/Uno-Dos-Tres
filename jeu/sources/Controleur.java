@@ -8,6 +8,7 @@ public class Controleur
     private Worker work;
     private Frame gui;
     private String pseudo;
+    private String id;
 
     public Controleur(String pseudo)
     {
@@ -48,12 +49,12 @@ public class Controleur
 
     public String getID()
     {
-        return this.gui.getID();
+        return this.id;
     }
 
-    public String getNewID()
+    public void getNewID()
     {
-        return this.work.getNewID();
+        this.id = this.work.getNewID();
     }
 
     public String getPseudo()
@@ -61,65 +62,90 @@ public class Controleur
         return this.pseudo;
     }
 
-    public int getNbJoueurs(String id)
+    public int getNbJoueurs()
     {
-        return this.work.getNbJoueurs(id);
+        return this.work.getNbJoueurs(this.id);
     }
 
-    public int getNbCartes(String id, String pseudo)
+    public int getNbCartes(String pseudo)
     {
-        this.work.getNbCartes(id,pseudo);
+        return this.work.getCartes(this.id,pseudo).length;
     }
 
-    public String getPseudos(String id)
+    public String[] getCartes(String pseudo)
     {
-        return this.work.getPseudos(id);
+        return this.work.getCartes(this.id,pseudo);
     }
 
-    public boolean addBot(String id)
+    public String getValLastCarte()
     {
-        return this.work.addBotTo(id);
+        return this.work.getValLastCarte(this.id);
+    }
+    
+    public char getCoulLastCarte()
+    {
+        return this.work.getCoulLastCarte(this.id);
     }
 
-    public void reinitialiserParam(String id)
+    public String getPseudos()
+    {
+        return this.work.getPseudos(this.id);
+    }
+
+    public boolean addBot()
+    {
+        return this.work.addBotTo(this.id);
+    }
+
+    public void reinitialiserParam()
     {
         this.gui.reinitialiserParam();
-        this.work.reinitialiserParam(id);
+        this.work.reinitialiserParam(this.id);
     }
 
-    public void lancerPartie(String id)
+    public void lancerPartie()
     {
-        this.work.lancerPartie(id);
+        this.work.lancerPartie(this.id);
         this.gui.partie();
     }
 
-    public void exclure(String id, String pseudo)
+    public void pioche()
     {
-        this.work.exclure(id,pseudo);
+        
     }
 
-    public void setPret(String id, String pseudo)
+    public void exclure(String pseudo)
     {
-        this.work.setPret(id,pseudo);
+        this.work.exclure(this.id,pseudo);
     }
 
-    public void PM(String id, boolean b)
+    public void setPret(String pseudo)
     {
-        this.work.PM(id,b);
+        this.work.setPret(this.id,pseudo);
     }
 
-    public void ST(String id, boolean b)
+    public void PM(boolean b)
     {
-        this.work.ST(id,b);
+        this.work.PM(this.id,b);
     }
 
-    public void PR(String id, boolean b)
+    public void ST(boolean b)
     {
-        this.work.PR(id,b);
+        this.work.ST(this.id,b);
     }
 
-    public void EQ(String id, boolean b)
+    public void PR(boolean b)
     {
-        this.work.EQ(id,b);
+        this.work.PR(this.id,b);
+    }
+
+    public void EQ(boolean b)
+    {
+        this.work.EQ(this.id,b);
+    }
+
+    public void nbCartesParJoueur(int n)
+    {
+        this.work.nbCartesParJoueur(this.id,n);
     }
 }

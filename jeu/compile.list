@@ -12,7 +12,15 @@
 ./sources/gui/lobby/PanelP1.java
 ./sources/gui/lobby/PanelP3.java
 ./sources/gui/lobby/PanelID.java
+./sources/gui/lobby/PanelNbCartes.java
 ./sources/gui/partie/PanelPartie.java
+./sources/gui/partie/PanelJ1.java
+./sources/gui/partie/PanelJ2.java
+./sources/gui/partie/PanelJ3.java
+./sources/gui/partie/PanelJ4.java
+./sources/gui/partie/PanelL1.java
+./sources/gui/partie/PanelL2.java
+./sources/gui/partie/objets/ClientCarte.java
 ./sources/worker/Carte.java
 ./sources/worker/Worker.java
 ./sources/worker/Joueur.java

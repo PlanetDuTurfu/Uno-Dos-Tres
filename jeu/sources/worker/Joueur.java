@@ -30,9 +30,12 @@ public class Joueur
         catch(Exception e) { return null; }
     }
 
-    public int getNbCartes()
+    public String[] getCartes()
     {
-        return this.main.size();
+        String[] tmpC = new String[this.main.size()];
+        for (int i = 0; i < this.main.size(); i++)
+            tmpC[i] = this.main.get(i).toString();
+        return tmpC;
     }
 
     public boolean estRobot()
