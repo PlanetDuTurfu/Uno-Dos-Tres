@@ -4,10 +4,8 @@ import sources.Controleur;
 import sources.gui.partie.objets.ClientCarte;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.Image;
-// import java.awt.GridLayout;
 
 public class PanelL2 extends JPanel
 {
@@ -22,9 +20,6 @@ public class PanelL2 extends JPanel
     public PanelL2(Controleur c)
     {
         this.c = c;
-        this.pnlJ2 = new PanelJ2(c);
-        this.pnlJ4 = new PanelJ4(c);
-        // this.lastCarte = new ClientCarte("2",'B');
         this.trsp1 = new JLabel(new ImageIcon(new ImageIcon("./img/transparent.png").getImage().getScaledInstance((int)(192*ratio),(int)(108*ratio), Image.SCALE_DEFAULT)));
         this.trsp2 = new JLabel(new ImageIcon(new ImageIcon("./img/transparent.png").getImage().getScaledInstance((int)(192*ratio),(int)(108*ratio), Image.SCALE_DEFAULT)));
         this.setOpaque(false);
@@ -36,6 +31,8 @@ public class PanelL2 extends JPanel
 
     public void mettreEnPlace()
     {
+        this.pnlJ2 = new PanelJ2(this.c);
+        this.pnlJ4 = new PanelJ4(this.c);
         int indiceMoi = 0;
         String[] pseudos = this.c.getPseudos().split("¤");
         for (int i = 0; i < pseudos.length; i++)
@@ -76,12 +73,21 @@ public class PanelL2 extends JPanel
             }
         }
 
-        this.lastCarte = new ClientCarte(this.c.getValLastCarte(),this.c.getCoulLastCarte(), true);
+        this.lastCarte = new ClientCarte(this.c, this.c.getValLastCarte(),this.c.getCoulLastCarte(), true, this.ratio);
 
         this.add(this.pnlJ2);
         this.add(this.trsp1);
         this.add(this.lastCarte);
         this.add(this.trsp2);
         this.add(this.pnlJ4);
+    }
+
+    public void removeAll()
+    {
+        this.remove(this.pnlJ2);
+        this.remove(this.trsp1);
+        this.remove(this.lastCarte);
+        this.remove(this.trsp2);
+        this.remove(this.pnlJ4);
     }
 }

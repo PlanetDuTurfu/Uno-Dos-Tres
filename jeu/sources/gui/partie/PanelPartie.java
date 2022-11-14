@@ -1,7 +1,6 @@
 package sources.gui.partie;
 
 import sources.Controleur;
-import sources.gui.partie.objets.ClientCarte;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
 
@@ -11,7 +10,7 @@ public class PanelPartie extends JPanel
     private PanelL1 pnlL1;
     private PanelL2 pnlL2;
     private PanelJ1 pnlJ1;
-    private float ratio = 1;
+    // private float ratio = 1;
 
     public PanelPartie(Controleur c)
     {
@@ -42,5 +41,16 @@ public class PanelPartie extends JPanel
         this.add(this.pnlL1);
         this.add(this.pnlL2);
         this.add(this.pnlJ1);
+    }
+
+    public void actualiserMesCartes()
+    {
+        this.remove(this.pnlJ1);
+        this.pnlJ1 = new PanelJ1(this.c);
+        this.pnlJ1.mettreEnPlace(this.c.getPseudo());
+        this.pnlL2.removeAll();
+        this.pnlL2.mettreEnPlace();
+        this.add(this.pnlJ1);
+        this.c.resize();
     }
 }

@@ -1,5 +1,7 @@
 package sources.gui.partie.objets;
 
+import sources.Controleur;
+
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -10,24 +12,28 @@ import java.awt.event.ActionListener;
 
 public class ClientCarte extends JPanel implements ActionListener
 {
+    private Controleur c;
     private boolean jouable;
     private String val;
     private char coul;
     private JButton btnCarte;
     private JLabel trsp;
 
-    public ClientCarte(String val, char coul, boolean deco)
+    public ClientCarte(Controleur c, String val, char coul, boolean deco, float ratio)
     {
+        this.c = c;
+        if (ratio == 0) ratio = 1;
         this.jouable = false;
         this.val = val;
         this.coul = coul;
-        if (!deco) {
-            this.trsp = new JLabel(new ImageIcon(new ImageIcon("./img/transparent.png").getImage().getScaledInstance(100,54, Image.SCALE_DEFAULT)));
-            this.add(this.trsp);
-        }
-        this.btnCarte = new JButton(new ImageIcon(new ImageIcon("./img/cartes/"+val+coul+".jpg").getImage().getScaledInstance(108,192, Image.SCALE_DEFAULT)));
+        this.btnCarte = new JButton(new ImageIcon(new ImageIcon("./img/cartes/"+val+coul+".jpg").getImage().getScaledInstance((int)(ratio*108),(int)(ratio*192), Image.SCALE_DEFAULT)));
         this.btnCarte.setBorderPainted(false);
         this.btnCarte.setContentAreaFilled(false);
+        if (!deco) {
+            this.trsp = new JLabel(new ImageIcon(new ImageIcon("./img/transparent.png").getImage().getScaledInstance((int)(ratio*5),(int)(ratio*2), Image.SCALE_DEFAULT)));
+            this.add(this.trsp);
+            this.btnCarte.addActionListener(this);
+        }
         this.add(this.btnCarte);
         this.setOpaque(false);
     }
@@ -60,6 +66,7 @@ public class ClientCarte extends JPanel implements ActionListener
 
     public void actionPerformed(ActionEvent e)
     {
-
+        this.c.jouer(this.getVal(), this.getCoul());
+        this.c.actualiserMesCartes();
     }
 }

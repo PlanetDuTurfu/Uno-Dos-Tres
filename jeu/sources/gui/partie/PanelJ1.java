@@ -3,16 +3,10 @@ package sources.gui.partie;
 import sources.Controleur;
 import sources.gui.partie.objets.ClientCarte;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
-import java.awt.Image;
 import java.awt.GridLayout;
-/*import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;*/
 import java.util.ArrayList;
 
-public class PanelJ1 extends JPanel /*implements ActionListener*/
+public class PanelJ1 extends JPanel
 {
     private Controleur c;
     private String pseudo = "personne";
@@ -29,6 +23,8 @@ public class PanelJ1 extends JPanel /*implements ActionListener*/
     public void setRatio(float ratio)
     {
         this.ratio = ratio;
+        // this.removeBtn();
+        this.mettreEnPlace(this.pseudo);
     }
 
     public void mettreEnPlace(String pseudo)
@@ -39,15 +35,19 @@ public class PanelJ1 extends JPanel /*implements ActionListener*/
         {
             s = s.replace("[","");
             s = s.replace("]","");
-            this.cartes.add(new ClientCarte(s.split(" ")[0],s.split(" ")[1].charAt(0), false));
+            this.cartes.add(new ClientCarte(this.c, s.split(" ")[0],s.split(" ")[1].charAt(0), false, this.ratio));
         }
+
         this.setLayout(new GridLayout(1,this.cartes.size(),0,0));
-        for (ClientCarte cc : this.cartes)
-        {
-            this.add(cc);
-            System.out.println("added ./img/cartes/"+cc.getVal()+""+cc.getCoul()+".jpg");
-        }
+        for (ClientCarte cc : this.cartes) this.add(cc);
     }
+
+    // private void removeBtn()
+    // {
+    //     this.removeAll();
+    //     // for (ClientCarte cc : this.cartes)
+    //     //     this.remove(cc);
+    // }
 
     // public void carteJouable(String cartes)
     // {
@@ -64,7 +64,10 @@ public class PanelJ1 extends JPanel /*implements ActionListener*/
 
     // }
 
-    // public void actionPerformed(ActionEvent e)
+    // public void actualiserMesCartes()
     // {
+    //     this.removeBtn();
+    //     this.mettreEnPlace(this.pseudo);
+    //     this.c.resize();
     // }
 }

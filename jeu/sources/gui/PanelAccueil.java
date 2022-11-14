@@ -21,14 +21,14 @@ public class PanelAccueil extends JPanel implements ActionListener
     private JLabel trsp3;
     private JLabel trsp4;
 
-    public PanelAccueil(Controleur c, float ratio)
+    public PanelAccueil(Controleur c, double ratio)
     {
         this.c = c;
         this.init(ratio);
         this.setOpaque(false);
     }
 
-    private void init(float ratio)
+    private void init(double ratio)
     {
         this.setLayout(new GridLayout(3,2,(int)(150*ratio),(int)(85*ratio/1.15)));
         this.btnLobby = new JButton(new ImageIcon(new ImageIcon("./img/creer.png").getImage().getScaledInstance((int)(384*ratio),(int)(216*ratio), Image.SCALE_DEFAULT)));

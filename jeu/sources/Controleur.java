@@ -109,9 +109,29 @@ public class Controleur
         this.gui.partie();
     }
 
+    public void jouer(String val, char coul)
+    {
+        this.work.jouer(this.id,val,coul);
+    }
+
+    public String getLastCarte()
+    {
+        return this.work.getLastCarte(this.id);
+    }
+
+    // public void setLastCarte(String val, String coul)
+    // {
+    //     this.gui.setLastCarte(val,coul);
+    // }
+
     public void pioche()
     {
         
+    }
+
+    public void actualiserMesCartes()
+    {
+        this.gui.actualiserMesCartes();
     }
 
     public void exclure(String pseudo)

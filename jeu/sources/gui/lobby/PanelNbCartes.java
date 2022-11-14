@@ -30,8 +30,7 @@ public class PanelNbCartes extends JPanel implements ActionListener
     public void setRatio(float ratio)
     {
         this.ratio = ratio;
-        this.remove(this.btnPlus);
-        this.remove(this.btnMoins);
+        this.removeBtn();
         this.init();
     }
 
@@ -46,6 +45,7 @@ public class PanelNbCartes extends JPanel implements ActionListener
     {
         this.btnMoins = new JButton(new ImageIcon(new ImageIcon("./img/moins.png").getImage().getScaledInstance((int)(54*ratio),(int)(96*ratio), Image.SCALE_DEFAULT)));
         this.btnPlus = new JButton(new ImageIcon(new ImageIcon("./img/plus.png").getImage().getScaledInstance((int)(54*ratio),(int)(96*ratio), Image.SCALE_DEFAULT)));
+        System.out.println("ratio : " + ratio);
         String snbCartes = "";
         if (this.nbCartesParJoueur < 16) snbCartes = "" + this.nbCartesParJoueur;
         if (this.nbCartesParJoueur > 15) snbCartes = "+++";

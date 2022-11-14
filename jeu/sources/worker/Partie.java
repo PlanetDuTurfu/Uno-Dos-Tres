@@ -1,7 +1,6 @@
 package sources.worker;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Partie
 {
@@ -13,13 +12,12 @@ public class Partie
     private Joueur joueurActuel;
     private int sensHoraire;
     private int pileAddition;
-    private boolean fini;
 
     // Paramètres de partie
     private boolean piocheMultiple = false;
     private boolean stackers = true;
-    private boolean partieRapide;
-    private boolean equipes;
+    // private boolean partieRapide;
+    // private boolean equipes;
     private int nbCartesDansLaPioche = 0;
     private int nbCartesParJoueur = 7;
 
@@ -29,7 +27,7 @@ public class Partie
         this.cartes = new ArrayList<Carte>();
         this.joueurs = new ArrayList<Joueur>();
         this.joueurs.add(j);
-        this.fini = false;
+        // this.fini = false;
         this.sensHoraire = 1;
         this.pileAddition = 0;
     }
@@ -77,8 +75,8 @@ public class Partie
     {
         this.piocheMultiple = false;
         this.stackers = true;
-        this.partieRapide = false;
-        this.equipes = false;
+        // this.partieRapide = false;
+        // this.equipes = false;
         this.nbCartesParJoueur = 7;
     }
 
@@ -94,12 +92,12 @@ public class Partie
 
     public void PR(boolean b)
     {
-        this.partieRapide = b;
+        // this.partieRapide = b;
     }
 
     public void EQ(boolean b)
     {
-        this.equipes = b;
+        // this.equipes = b;
     }
 
     public void nbCartesParJoueur(int n)
@@ -145,21 +143,10 @@ public class Partie
             if (j.estPret()) nbJoueursPrets++;
         if (nbJoueursPrets == this.joueurs.size())
         {
-            System.out.println("Première carte : " + this.lastCarte + ".");
             for (Joueur j : this.joueurs)
                 System.out.println(j.toString());
             System.out.println(this.joueurActuel.getPseudo() + " commence à jouer.");
-            this.jouerBot();
-        }
-    }
-
-    private void jouerBot()
-    {
-        if (this.joueurActuel.estRobot())
-        {
-            if (this.joueurActuel.peutJouer(this.lastCarte)) this.jouerCarte(this.joueurActuel.jouerAleatoire());
-            else this.piocher(0);
-            this.prochainTour();
+            if (this.joueurActuel.estRobot()) this.jouerBot();
         }
     }
 
@@ -240,22 +227,22 @@ public class Partie
         this.lastCarte = this.cartes.get((int)(Math.random()*40));
     }
 
-    private void dernierCoup(Carte c)
-    {
-        System.out.println("Joue " + c);
-        this.joueurActuel.retirerCarte(c);
-        this.lastCarte = c;
-        // Si +2
-        if (c.getValeur().equals("p2")) this.pileAddition += 2;
-        // Si +4
-        if (c.getValeur().equals("p4")) this.pileAddition += 4;
+    // private void dernierCoup(Carte c)
+    // {
+    //     System.out.println("Joue " + c);
+    //     this.joueurActuel.retirerCarte(c);
+    //     this.lastCarte = c;
+    //     // Si +2
+    //     if (c.getValeur().equals("p2")) this.pileAddition += 2;
+    //     // Si +4
+    //     if (c.getValeur().equals("p4")) this.pileAddition += 4;
 
-        int tmp = this.joueurs.indexOf(this.joueurActuel) + this.sensHoraire;
-        if (tmp < 0) tmp = this.joueurs.size() + tmp - 1;
-        this.joueurActuel = this.joueurs.get((tmp) % 4);
-        this.piocher(this.pileAddition);
-        this.fini = true;
-    }
+    //     int tmp = this.joueurs.indexOf(this.joueurActuel) + this.sensHoraire;
+    //     if (tmp < 0) tmp = this.joueurs.size() + tmp - 1;
+    //     this.joueurActuel = this.joueurs.get((tmp) % 4);
+    //     this.piocher(this.pileAddition);
+    //     // this.fini = true;
+    // }
 
     private void prochainTour()
     {
@@ -263,7 +250,7 @@ public class Partie
         for (Joueur j : this.joueurs)
             if (j.hasWin())
             {
-                this.fini = true;
+                // this.fini = true;
                 System.out.println(this.joueurActuel.getPseudo() + " remporte la partie.");
                 return;
             }
@@ -289,65 +276,72 @@ public class Partie
         
         this.verif();
 
-        this.jouerBot();
+        try { Thread.sleep(500); } catch(Exception e) {}
+
+        if (this.joueurActuel.estRobot()) this.jouerBot();
     }
 
     private void verif()
     {
-        // // S'il y a un +2, +4... de posé
-        // if (this.pileAddition > 0)
-        // {
-        //     // Si le joueur ne peut pas jouer alors il pioche les cartes
-        //     if (!this.joueurActuel.peutJouer(this.lastCarte))
-        //     {
-        //         int tmp = this.pileAddition;
-        //         this.pileAddition = 0;
-        //         this.lastCarte.plusActive();
-        //         this.piocher(tmp);
-        //     }
-        //     else if (this.joueurActuel.estRobot())
-        //         this.jouerCarte(this.joueurActuel.jouerAleatoire());
-        //     else
-        //     {
-        //         int indice = Integer.parseInt(sc.nextLine());
-        //         Carte c = this.joueurActuel.getCarte(indice);
-        //         if (c == null) this.jouerCarte(this.carteHasard());
-        //         else this.jouerCarte(c);
-        //     }
-        // }
-        // else if (this.joueurActuel.peutJouer(this.lastCarte))
-        // {
-        //     if (this.joueurActuel.estRobot()) this.jouerCarte(this.joueurActuel.jouerAleatoire());
-        //     else
-        //     {
-        //         int indice = Integer.parseInt(sc.nextLine());
-        //         Carte c = this.joueurActuel.getCarte(indice);
-        //         if (c == null) this.jouerCarte(this.carteHasard());
-        //         else this.jouerCarte(c);
-        //     }
-        // }
-        // else this.piocher(0);
+        // S'il y a un +2, +4... de posé
+        if (this.pileAddition > 0)
+        {
+            // Si le joueur ne peut pas jouer alors il pioche les cartes
+            if (!this.joueurActuel.peutJouer(this.lastCarte))
+            {
+                int tmp = this.pileAddition;
+                this.pileAddition = 0;
+                this.lastCarte.plusActive();
+                this.piocher(tmp);
+            }
+            else if (this.joueurActuel.estRobot())
+            {
+                Carte tmp = this.joueurActuel.jouerAleatoire();
+                this.jouer(tmp.getValeur(), tmp.getCouleur());
+            }
+        }
+        else if (this.joueurActuel.peutJouer(this.lastCarte))
+        {
+            if (this.joueurActuel.estRobot())
+            {
+                Carte tmp = this.joueurActuel.jouerAleatoire();
+                this.jouer(tmp.getValeur(), tmp.getCouleur());
+            }
+        }
+        else this.piocher(0);
 
         for (Joueur j : this.joueurs)
             System.out.println(j.toString());
-        try { Thread.sleep(1000); } catch(Exception e) {}
-    }
-
-    private String toStringCartes()
-    {
-        String sRet = "";
-        for (Carte c : this.cartes)
-            sRet += c+" ";
-        return sRet;
     }
 
 // Actions
-    public void jouerCarte(Carte c)
+    public void jouer(String val, char coul)
     {
-        System.out.println("Joue " + c + ".\n\n\n");
-        this.joueurActuel.retirerCarte(c);
-        this.lastCarte = c;
-        this.actionCarte();
+        for (int i = 0; i < this.joueurActuel.getCartes().length; i++)
+        {
+            Carte c = this.joueurActuel.getCarte(i);
+            if (c.getValeur().equals(val) && c.getCouleur() == coul)
+            {
+                System.out.println(this.joueurActuel.getPseudo() + " a joué " + val+coul);
+                this.joueurActuel.retirerCarte(c);
+                this.lastCarte = c;
+                this.actionCarte();
+            }
+        }
+        this.prochainTour();
+        // String infos = "";
+        // for (Joueur j : this.joueurs) j.envoyerInfos(infos);
+    }
+
+    private void jouerBot()
+    {
+        if (this.joueurActuel.peutJouer(this.lastCarte))
+        {
+            Carte tampon = this.joueurActuel.jouerAleatoire();
+            this.jouer(tampon.getValeur(), tampon.getCouleur());
+        }
+        else this.piocher(0);
+        this.prochainTour();
     }
 
     private void actionCarte()
@@ -402,7 +396,8 @@ public class Partie
                     System.out.println("Il pioche une carte.");
                     this.joueurActuel.addCarte(this.carteHasard());
                 }
-                this.jouerCarte(this.joueurActuel.jouerAleatoire());
+                Carte tampon = this.joueurActuel.jouerAleatoire();
+                this.jouer(tampon.getValeur(), tampon.getCouleur());
                 System.out.println("\n\n\n");
             }
             else
@@ -410,7 +405,10 @@ public class Partie
                 System.out.println("Il pioche une carte.\n\n\n");
                 this.joueurActuel.addCarte(this.carteHasard());
                 if (this.joueurActuel.peutJouer(this.lastCarte))
-                    this.jouerCarte(this.joueurActuel.jouerAleatoire());
+                {
+                    Carte tampon = this.joueurActuel.jouerAleatoire();
+                    this.jouer(tampon.getValeur(), tampon.getCouleur());
+                }
             }
         }
     }

@@ -20,7 +20,7 @@ import java.awt.event.ActionListener;
 public class Frame extends JFrame
 {
 	private Controleur c;
-	private float ratio = 1;
+	private double ratio = 0.9;
 	private PanelEchap pnlEchap;
 	private PanelLobby pnlLobby;
 	private PanelAccueil pnlAccueil;
@@ -34,7 +34,7 @@ public class Frame extends JFrame
 		this.c = c;
 		this.setTitle("Uno Dos Tres !");
 		this.setLocation(0,0);
-		this.setSize(1600,900);
+		this.setSize(1440,810);
 
 		this.setLayout(new BorderLayout());
 		this.lblImage = new JLabel(new ImageIcon(new ImageIcon("./img/uno_dos_tres.jpg").getImage().getScaledInstance(1600,900, Image.SCALE_DEFAULT)));
@@ -126,6 +126,11 @@ public class Frame extends JFrame
 		this.c.setPret(this.c.getPseudo());
 		this.resize();
 	}
+
+	public void actualiserMesCartes()
+    {
+        this.pnlPartie.actualiserMesCartes();
+    }
 
 	// Option echap
 	protected JRootPane createRootPane()

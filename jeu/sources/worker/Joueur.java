@@ -130,6 +130,11 @@ public class Joueur
         return this.main.get((int)(Math.random()*this.main.size())).getCouleur();
     }
 
+    // public void envoyerInfos()
+    // {
+    //     this.c.
+    // }
+
     public String toString()
     {
         String sRet = this.pseudo + " : ";
@@ -166,7 +171,7 @@ class Tri implements Comparator<Carte>
         if (bA) return -1;
 
         /* Sinon */
-        boolean bB = false;
+        // boolean bB = false;
 
         try
         {

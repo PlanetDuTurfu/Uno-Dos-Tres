@@ -103,6 +103,19 @@ public class Worker
             if (p.getID().equals(id)) p.setPret(pseudo);
     }
 
+    public void jouer(String id, String val, char coul)
+    {
+        for (Partie p : this.parties)
+            if (p.getID().equals(id)) p.jouer(val,coul);
+    }
+
+    public String getLastCarte(String id)
+    {
+        for (Partie p : this.parties)
+            if (p.getID().equals(id)) return p.getValLastCarte() + " " + p.getCoulLastCarte();
+        return null;
+    }
+
 // Paramètres de partie
     public void reinitialiserParam(String id)
     {
